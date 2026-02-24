@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Cancún</title>
+    <style>
+        :root {
+            --primary-red: #d32f2f;
+            --primary-blue: #1A4B84;
+            --dark-bg: #1a1a1a;
+            --light-bg: #f9f9f9;
+            --text-main: #333;
+            --premium-gold: #D4AF37;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            background-image: url('images/fndo.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            text-align: center;
+            padding: 15px 15px 0 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding-bottom: 10px;
+        }
+
+        .logo {
+            width: 60px;
+            height: auto;
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        h1 {
+            color: var(--primary-red);
+            font-size: 28px;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: var(--primary-red);
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* Botón Volver y Botón Inferior */
+        .back-btn-container {
+            display: none;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .back-btn {
+            background: var(--primary-red);
+            /* Rojo para comida */
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #b71c1c;
+            /* Rojo ligeramente más oscuro */
+            transform: translateY(-4px);
+            /* Efecto de flotar */
+            box-shadow: 0 8px 18px rgba(211, 47, 47, 0.4);
+            /* Sombra roja brillante */
+        }
+
+        .back-btn:active {
+            transform: scale(0.95);
+            /* Efecto de "apachurrar" al hacer clic */
+        }
+
+        .nav-wrapper {
+            display: none;
+            /* Se activa al entrar a una categoría */
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding: 5px 0;
+        }
+
+        .scroll-arrow {
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            font-size: 20px;
+            font-weight: bold;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        nav {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 5px 0;
+            flex-grow: 1;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--primary-red);
+            color: var(--primary-red);
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cat-btn.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .cat-btn.premium {
+            border-color: var(--premium-gold);
+            color: var(--premium-gold);
+        }
+
+        .cat-btn.premium.active {
+            background: var(--premium-gold);
+            color: white;
+        }
+
+        .spicy-legend {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--primary-red);
+            border-bottom: 1px dashed var(--primary-red);
+        }
+
+        /* CUADRÍCULA ADAPTATIVA */
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 20px 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .home-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+        }
+
+        .home-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+        }
+
+        .home-card:active {
+            transform: scale(0.95);
+        }
+
+        .home-card.premium {
+            border-color: var(--premium-gold);
+        }
+
+        .grid-icon {
+            font-size: 40px;
+            line-height: 1;
+        }
+
+        .grid-text {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            line-height: 1.2;
+            transition: color 0.3s;
+        }
+
+        .home-card.premium .grid-text {
+            color: var(--premium-gold);
+        }
+
+        /* Efecto al pasar el mouse - Tarjetas normales (Rojo) */
+        .home-card:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        /* Efecto al pasar el mouse - Tarjetas Premium (Dorado) */
+        .home-card.premium:hover {
+            background: var(--premium-gold);
+            border-color: var(--premium-gold);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .home-card:hover .grid-text {
+            color: white;
+        }
+
+        .menu-container {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 15px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .sub-group { margin-bottom: 25px; }
+
+        .category-section {
+            margin-bottom: 40px;
+            display: none;
+        }
+
+        .category-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .category-title {
+            color: var(--primary-red);
+            border-bottom: 2px solid var(--primary-red);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-title.premium-title {
+            color: var(--premium-gold);
+            border-bottom-color: var(--premium-gold);
+        }
+
+        .category-desc {
+            font-size: 14px;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .category-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-image img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .item-info {
+            width: 75%;
+        }
+
+        .item-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 2px;
+            color: var(--text-main);
+        }
+
+        .item-desc {
+            font-size: 13px;
+            color: var(--primary-blue);
+            font-style: italic;
+            margin-top: 3px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: var(--primary-blue);
+            font-size: 16px;
+            text-align: right;
+            width: 25%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--dark-bg);
+            color: #ccc;
+            font-size: 12px;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        footer strong {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .social-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--primary-red);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="images/logo.svg" alt="Logo Velerito" class="logo">
+            <div class="header-text">
+                <h1>Menú Cancún</h1>
+                <p class="subtitle">cocina del mar en Laja, Leña y Carbón</p>
+            </div>
+        </div>
+
+        <div class="back-btn-container" id="back-container">
+            <button class="back-btn" onclick="showHome()">🏠 Menú Principal</button>
+        </div>
+
+        <div class="nav-wrapper" id="nav-wrapper">
+            <button class="scroll-arrow" onclick="scrollNav(-150)">❮</button>
+            <nav id="category-nav"></nav>
+            <button class="scroll-arrow" onclick="scrollNav(150)">❯</button>
+        </div>
+    </header>
+
+    <div class="spicy-legend" id="spicy-legend">
+        🌶️ Picante Bajo &nbsp;|&nbsp; 🌶️🌶️ Picante Medio &nbsp;|&nbsp; 🌶️🌶️🌶️ Pide Extra Picante
+    </div>
+
+    <div id="chef-message" style="text-align: center; margin: 20px auto 10px auto; font-size: 16px; color: var(--primary-blue); font-style: italic; font-weight: 500; max-width: 800px; padding: 0 15px;">
+        <p>Nuestro menú está inspirado en las vivencias y raíces del chef.</p>
+        <p>La mayoría de nuestros productos artesanales y proteínas son traídos desde los mares de Tabasco, Campeche y Yucatán para todos ustedes con cariño.</p>
+    </div>
+    <div id="home-view" class="home-grid"></div>
+    <div class="menu-container" id="menu-content"></div>
+    <div id="return-home-container" style="text-align: center; padding: 20px 15px 40px 15px;">
+        <a href="menu-velerito-cancun.html" class="back-btn">
+            ⬅ Volver a Elegir Menú
+        </a>
+    </div>
+    <footer>
+        <p>Todos los precios incluyen IVA. La propina no es obligatoria, se gana a través del buen servicio.</p>
+        <p>Se aceptan tarjetas (VISA, MASTERCARD y AMERICAN EXPRESS). El precio es el mismo pagando en efectivo o con
+            tarjeta.</p>
+        <div class="social-container">
+            <a href="tel:+529932380992" class="social-link">📞 (993)-238-0992</a>
+            <a href="https://www.instagram.com/velerito.cancun" target="_blank" rel="noopener noreferrer"
+                class="social-link">
+                <svg class="social-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+                @velerito.cancun
+            </a>
+            <a href="https://www.facebook.com/veleritochoco" target="_blank" rel="noopener noreferrer"
+                class="social-link">
+                <svg class="social-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+                </svg>
+                Velerito Choco
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const menuData = [
+            {
+                icon: "🦪",
+                category: "Ostiones Calidad Oysterland Prime",
+                description: "Nuestros ostiones son seleccionados con altos estándares de calidad, asegurando una experiencia inigualable.",
+                image: "images/calidad.png",
+                isPremium: true,
+                items: [
+                    { name: "En su Concha Naturales", price: "$275", desc: "" },
+                    { name: "Asados Naturales", price: "$295", desc: "" },
+                    { name: "Asados Bañados en Chiltepín", price: "$295", desc: "" },
+                    { name: "Velerito con Salpicón de Mariscos", price: "$365", desc: "" },
+                    { name: "Ostiones con Tartar de Atún", price: "$375", desc: "" },
+                    { name: "Con Camarones al Habanero", price: "$360", desc: "" },
+                    { name: "Con Ceviche de Pesca del Día", price: "$325", desc: "" },
+                    { name: "Aguachile de Cacao", price: "$310", desc: "" },
+                    { name: "Zarandeados", price: "$375", desc: "" },
+                    { name: "Rockefeller", price: "$410", desc: "" }
+                ]
+            },
+            {
+                icon: "🌶️",
+                category: "Aguachiles",
+                description: "Escoge una de las 3 opciones de preparación:<br>- Verde con Extracto de Chiles<br>- Negro con Chiles Secos Asados a las Brasas y Cacao Tabasqueño Tostado<br>- Coloradito con Chile Piquín",
+                items: [
+                    { name: "Camarón", price: "$310", desc: "" },
+                    { name: "Pulpo", price: "$335", desc: "" },
+                    { name: "Combinado", price: "$375", desc: "(pulpo y camarón)" },
+                    { name: "Pesca del Día", price: "$295", desc: "" },
+                    { name: "Atún", price: "$365", desc: "" }
+                ]
+            },
+            {
+                icon: "🐟",
+                category: "Ceviches",
+                description: "",
+                groups: [
+                    {
+                        title: "Blanco Estilo Frontera",
+                        items: [
+                            { name: "Pesca del Día", price: "$365", desc: "" },
+                            { name: "Combinado", price: "$395", desc: "(camarón, pulpo y pescado)" }
+                        ]
+                    },
+                    {
+                        title: "Negro o A La Mexicana Con Leche de Tigre",
+                        items: [
+                            { name: "Camarón", price: "$310", desc: "" },
+                            { name: "Pulpo", price: "$335", desc: "" },
+                            { name: "Combinado", price: "$375", desc: "(camarón y pulpo)" },
+                            { name: "Pesca del Día", price: "$295", desc: "" },
+                            { name: "Atún", price: "$365", desc: "" }
+                        ]
+                    },
+                    {
+                        title: "Especialidades",
+                        items: [
+                            { name: "Atún con Ponzu de Maracuyá y Chile Serrano 🌶️", price: "$395", desc: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                icon: "🌽",
+                category: "Tostadas de Pozol",
+                description: "",
+                items: [
+                    { name: "Atún Laminado con Chimichurri Criollo", price: "$195", desc: "" },
+                    { name: "Camarón con Mayonesa de Chiltepín y Cacao Tabasqueño", price: "$190", desc: "" },
+                    { name: "Pulpo con Aloli de Chile Habanero Tatemado y Ajo 🌶️", price: "$195", desc: "" },
+                    { name: "De Ceviche Blanco Estilo Frontera", price: "$195", desc: "" }
+                ]
+            },
+            {
+                icon: "🥟",
+                category: "Empanadas",
+                description: "",
+                items: [
+                    { name: "Quesos de Tabasco", price: "$85", desc: "" },
+                    { name: "Queso de Hebra y Camarón", price: "$95", desc: "" },
+                    { name: "Queso de Bola Gallo Azul y Camarón", price: "$110", desc: "" },
+                    { name: "Queso Enchilado de Balancán y Camarón 🌶️🌶️", price: "$105", desc: "" },
+                    { name: "Chicharrón Prensado c/Pulpo", price: "$125", desc: "" },
+                    { name: "Jaiba con Sofrito Rústico", price: "$110", desc: "" }
+                ]
+            },
+            {
+                icon: "🥙",
+                category: "Salbutes y Panuchos",
+                description: "",
+                groups: [
+                    {
+                        title: "Salbutes",
+                        items: [
+                            { name: "De Camarón", price: "$140", desc: "" },
+                            { name: "De Pulpo", price: "$155", desc: "" },
+                            { name: "De Jaiba", price: "$160", desc: "" }
+                        ]
+                    },
+                    {
+                        title: "Panuchos",
+                        items: [
+                            { name: "Chicharrón Prensado", price: "$155", desc: "(c/pulpo)" },
+                            { name: "De Camarón", price: "$140", desc: "" },
+                            { name: "De Jaiba", price: "$160", desc: "" }
+                        ]
+                    }
+                ]
+            },
+            {
+                icon: "🍸",
+                category: "Cocteles Estilo Progreso",
+                description: "",
+                items: [
+                    { name: "Camarón", price: "$260 | $320", desc: "" },
+                    { name: "Pulpo", price: "$295 | $365", desc: "" },
+                    { name: "Combinado", price: "$320 | $395", desc: "(pulpo y camarón)" },
+                    { name: "Vuelve a la Vida", price: "$395 | $460", desc: "(pulpo, camarón y ostión)" }
+                ]
+            },
+            {
+                icon: "🫓",
+                category: "Tortillas Gruesas",
+                description: "",
+                items: [
+                    { name: "Al Mojo de Ajo", price: "$225", desc: "" },
+                    { name: "Relleno de Queso", price: "$275", desc: "" },
+                    { name: "Rellena de Queso de Hebra y Camarón", price: "$365", desc: "" },
+                    { name: "Combinada al Chiltepín 🌶️", price: "$395", desc: "(de pulpo con camarón)" },
+                    { name: "Rellena de Pulpa de Jaiba", price: "$425", desc: "" }
+                ]
+            },
+            {
+                icon: "🐠",
+                category: "Mojarras Criollas",
+                description: "",
+                items: [
+                    { name: "Frita", price: "$365", desc: "" },
+                    { name: "Asada a la Leña", price: "$365", desc: "" },
+                    { name: "Zarandeadas a las Brasas", price: "$395", desc: "" },
+                    { name: "Bañada al Chiltepín", price: "$395", desc: "" },
+                    { name: "Al Mojo de Ajo", price: "$385", desc: "" }
+                ]
+            },
+            {
+                icon: "🌮",
+                category: "Tacos de Mar",
+                description: "",
+                items: [
+                    { name: "Camarón Jalapeño con Tocino", price: "$160", desc: "" },
+                    { name: "Camarón Rebosado", price: "$145", desc: "" },
+                    { name: "Sudado de Pulpo con Chicharrón Prensado", price: "$160", desc: "" },
+                    { name: "Mestiza Tatemada de Pulpo", price: "$150", desc: "" },
+                    { name: "Taco Gobernador", price: "$175", desc: "" },
+                    { name: "Taco Dorado Combinado", price: "$140", desc: "(de pulpo con camarón)" },
+                    { name: "Pesca del Día en Tempura de Cerveza Obscura", price: "$165", desc: "" }
+                ]
+            },
+            {
+                icon: "🍕",
+                category: "Tlayudas Artesanales",
+                description: "(rellenas con marqueta de frijol, chiltomate y queso de hebra)",
+                items: [
+                    { name: "De Camarón", price: "$310", desc: "" },
+                    { name: "Pulpo", price: "$335", desc: "" },
+                    { name: "Combinada", price: "$365", desc: "(de pulpo con camarón)" },
+                    { name: "Vegetariana", price: "$295", desc: "" }
+                ]
+            },
+            {
+                icon: "👨‍🍳",
+                category: "Especialidades Velerito",
+                description: "",
+                items: [
+                    { name: "Espagueti 🌶️", price: "$325", desc: "(con crema al chiltepín y camarones)" },
+                    { name: "Fetuchini Cremoso", price: "Varía", desc: "(con queso Tabasqueño y calabacines parrillados) c/Pulpo $365 | c/Camarón $335" },
+                    { name: "Arroz al Chiltepín 🌶️", price: "$325", desc: "(con camarones al mojo de ajo)" },
+                    { name: "Pulpo al Poc-Chuc", price: "$420", desc: "(con puré de plátano macho y frijol colado)" },
+                    { name: "Carnitas de Atún", price: "$365", desc: "(con chicharrón, guacamole y chiltomate)" },
+                    { name: "Pulpo al Pastor", price: "$395", desc: "(con macarrones en crema de chile dulce e xcatic y queso fundido)" },
+                    { name: "Cebolla a las Brasas", price: "$330", desc: "(rellena de mousse de quesos tabasqueños y camarón)" },
+                    { name: "Machete de Pulpo", price: "$375", desc: "(con longaniza de Valladolid y queso de hebra de Tenosique)" },
+                    { name: "Manitas de Cangrejo Moro", price: "$595", desc: "(bañadas en mantequilla de limón y chiltepín)" },
+                    { name: "Almejas Supremas", price: "$595", desc: "(rellenas con arroz meloso de mariscos)" },
+                    { name: "Esquites de Mar con Camarones", price: "$395", desc: "(con queso poro de Balancán)" },
+                    { name: "Camarones Velerito", price: "$325", desc: "(rellenos de queso doble crema de Comalcalco)" },
+                    { name: "Chileatole de Camarón", price: "$295", desc: "" },
+                    { name: "Camarones Embarazados", price: "$425", desc: "(con minilla de jaiba del puerto de Atasta)" },
+                    { name: "Camarones Zarandeados 🌶️", price: "$398", desc: "(barnizados en aderezo de chiles secos ahumados)" },
+                    { name: "Camarones Flameados al Xtabentun", price: "$390", desc: "(con mantequilla de perejil criollo)" },
+                    { name: "Camarones Jorobados con Cangrejo", price: "$425", desc: "(con mantequilla de limón, ajo y alcaparras)" },
+                    { name: "Camarones Achiotados", price: "$410", desc: "(con naranja agria y ensalada de jícama)" },
+                    { name: "Camarones Ahogados 🌶️", price: "$395", desc: "(en salsa de chiltepín Tabasqueño)" },
+                    { name: "Camarones a la Diabla 🌶️🌶️", price: "$420", desc: "(con arroz casero)" }
+                ]
+            },
+            {
+                icon: "🍽️",
+                category: "Los Clásicos",
+                description: "(acompañados con marqueta de frijol, platanitos, arroz casero y ensalada)",
+                items: [
+                    { name: "Filete de Pesca del Día Empanizado", price: "$465", desc: "" },
+                    { name: "Filete de Pesca del Día a la Plancha", price: "$435", desc: "" },
+                    { name: "Filete de Pesca del Día al Mojo de Ajo a la Mantequilla", price: "$475", desc: "" },
+                    { name: "Camarones Empanizados", price: "$425", desc: "" },
+                    { name: "Camarones a la Mantequilla", price: "$435", desc: "" },
+                    { name: "Camarones al Mojo de Ajo", price: "$440", desc: "" }
+                ]
+            },
+            {
+                icon: "🥘",
+                category: "Charolas Para Compartir En Familia",
+                description: "(incluye servicio de totopos, tostadas y salsas)",
+                items: [
+                    { name: "Ceviche Blanco Estilo Frontera", price: "$1,600 | $3,250", desc: "" },
+                    { name: "Arroz con Camarón al Chiltepín 🌶️", price: "$1,450 | $2,950", desc: "" },
+                    { name: "Arroz Combinado al Chiltepín 🌶️", price: "$1,600 | $3,200", desc: "(con camarón y pulpo)" },
+                    { name: "Camarones del Golfo", price: "$1,700 | $3,450", desc: "(acompañados con chorizo, elotes, papa cambray y salsa secreta del chef)" },
+                    { name: "Camarones del Golfo Combinada", price: "$2,200 | $4,450", desc: "(la charola más rica de la casa ahora con manitas de cangrejo moro)" },
+                    { name: "De Atún Laminado", price: "$1,850 | $3,750", desc: "(con salsa rasurada)" },
+                    
+                    // --- SUBDIVISIÓN ESPAGUETI ---
+                    { name: "<span style='color: var(--primary-red); font-size: 17px;'>Espagueti Cremoso Al Chiltepín 🌶️</span>", price: "", desc: "(con aguacate al carbón)" },
+                    { name: "• Con Pulpo", price: "$1,750 | $3,550", desc: "" },
+                    { name: "• Con Camarón", price: "$1,600 | $3,250", desc: "" },
+                    { name: "• Combinada", price: "$1,850 | $3,750", desc: "" },
+
+                    // --- SUBDIVISIÓN FETUCHINI ---
+                    { name: "<span style='color: var(--primary-red); font-size: 17px;'>Fetuchini Cremoso</span>", price: "", desc: "(con quesos Tabasqueños y calabacines)" },
+                    { name: "• Con Pulpo", price: "$1,750 | $3,550", desc: "" },
+                    { name: "• Con Camarón", price: "$1,600 | $3,250", desc: "" },
+                    { name: "• Combinada", price: "$1,850 | $3,750", desc: "" }
+                ]
+            },
+
+            {
+                icon: "🍔",
+                category: "Hamburguesas",
+                description: "",
+                items: [
+                    { name: "De Atún", price: "$210", desc: "" },
+                    { name: "Pulpo Frito", price: "$195", desc: "" },
+                    { name: "Camarones Capeados", price: "$195", desc: "" },
+                    { name: "Pescado Empanizado", price: "$175", desc: "" }
+                ]
+            },
+            {
+                icon: "🍰",
+                category: "Postres",
+                description: "",
+                items: [
+                    { name: "Copa 43", price: "$225", desc: "(con helado de vainilla, cacao garapiñado y crema de licor 43)" },
+                    { name: "Flan con Jalea de Maracuyá con Helado", price: "$185", desc: "" },
+                    { name: "Merengón de Fresas y Crema Inglesa", price: "$195", desc: "" },
+                    { name: "Napolitano de Chocolate con Helado", price: "$195", desc: "" },
+                    { name: "Platanito Macho Tabasco a la Leña", price: "$210", desc: "(con helado de dulce de leche hecho en casa)" },
+                    { name: "Empanada a la Marquesita", price: "$135", desc: "(con dulce de leche y queso de bola Gallo Azul)" },
+                    { name: "Empanada de Pasta de Guayaba", price: "$135", desc: "(con queso de bola Gallo Azul)" }
+                ]
+            },
+            {
+                icon: "🥤",
+                category: "Bebidas",
+                description: "",
+                items: [
+                    { name: "Refrescos (355ml)", price: "$45", desc: "(coca-cola clásica, light y zero, fanta, sidral mundet, squirt y manzanita peñafiel)" },
+                    { name: "Topo-Chico (355ml)", price: "$50", desc: "" },
+                    { name: "Aguas Frescas", price: "$39", desc: "(limonada y naranjada)" },
+                    { name: "Agua Natural (500ml)", price: "$35", desc: "" },
+                    { name: "Heineken 0.0 (250ml)", price: "$45", desc: "" },
+                    { name: "Café (355ml)", price: "$40", desc: "(americano, capuchino o expresso)" }
+                ]
+            }
+        ];
+
+        const chefMessage = document.getElementById('chef-message');
+        const homeGrid = document.getElementById('home-view');
+        const navWrapper = document.getElementById('nav-wrapper');
+        const categoryNav = document.getElementById('category-nav');
+        const menuContent = document.getElementById('menu-content');
+        const spicyLegend = document.getElementById('spicy-legend');
+        const backContainer = document.getElementById('back-container');
+
+        function init() {
+            menuData.forEach((cat, index) => {
+                // Tarjetas cuadrícula
+                const card = document.createElement('div');
+                card.className = `home-card ${cat.isPremium ? 'premium' : ''}`;
+                card.onclick = () => showCategory(index);
+                card.innerHTML = `<div class="grid-icon">${cat.icon}</div><div class="grid-text">${cat.category}</div>`;
+                homeGrid.appendChild(card);
+
+                // Botones nav superior
+                const btn = document.createElement('button');
+                btn.className = `cat-btn ${cat.isPremium ? 'premium' : ''}`;
+                btn.innerText = cat.category;
+                btn.onclick = () => showCategory(index);
+                categoryNav.appendChild(btn);
+
+                // Secciones menú
+                const section = document.createElement('div');
+                section.className = 'category-section';
+                section.id = `cat-${index}`;
+                let html = '';
+                // Solo renderizar el titulo general si NO tiene subgrupos
+                if (!cat.groups) {
+                    html += `<h2 class="category-title ${cat.isPremium ? 'premium-title' : ''}">${cat.icon} ${cat.category}</h2>`;
+                }
+                if (cat.description) html += `<p class="category-desc">${cat.description}</p>`;
+                if (cat.image) html += `<div class="category-image"><img src="${cat.image}" alt="Sello"></div>`;
+                if (cat.groups) {
+                    cat.groups.forEach(group => {
+                        html += `<div class="sub-group">`;
+                        html += `<h2 class="category-title" style="font-size: 18px; margin-top: 15px;">${cat.icon} ${group.title}</h2>`;
+                        group.items.forEach(item => {
+                            html += `<div class="item"><div class="item-info"><div class="item-name">${item.name}</div>${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}</div><div class="item-price">${item.price}</div></div>`;
+                        });
+                        html += `</div>`;
+                    });
+                } else if (cat.items) {
+                    cat.items.forEach(item => {
+                        html += `<div class="item"><div class="item-info"><div class="item-name">${item.name}</div>${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}</div><div class="item-price">${item.price}</div></div>`;
+                    });
+                }
+                section.innerHTML = html;
+                menuContent.appendChild(section);
+            });
+        }
+
+        function showCategory(index) {
+            // ESTA LÍNEA OCULTA EL BOTÓN DE VOLVER AL INICIO CUANDO ENTRAS A UNA CATEGORÍA
+            document.getElementById('return-home-container').style.display = 'none';
+
+            chefMessage.style.display = 'none';
+            homeGrid.style.display = 'none';
+            menuContent.style.display = 'block';
+            navWrapper.style.display = 'flex';
+            backContainer.style.display = 'block';
+            spicyLegend.style.display = 'block';
+            document.querySelectorAll('.cat-btn').forEach((b, i) => b.classList.toggle('active', i === index));
+            document.querySelectorAll('.category-section').forEach((s, i) => s.classList.toggle('active', i === index));
+            const activeBtn = document.querySelectorAll('.cat-btn')[index];
+            if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            // ESTA LÍNEA VUELVE A MOSTRAR EL BOTÓN SOLO EN LA PÁGINA PRINCIPAL
+            document.getElementById('return-home-container').style.display = 'block';
+
+            chefMessage.style.display = 'block';
+            homeGrid.style.display = 'grid';
+            menuContent.style.display = 'none';
+            navWrapper.style.display = 'none';
+            backContainer.style.display = 'none';
+            spicyLegend.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function scrollNav(amt) { categoryNav.scrollBy({ left: amt, behavior: 'smooth' }); }
+
+        init();
+    </script>
+</body>
+
+</html>
