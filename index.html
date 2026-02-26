@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastronómica BAK & KAY del Sureste</title>
+    <!-- Importar fuente elegante de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Variables originales */
+            --velerito-blue: #1A4B84;
+            --pibinal-red: #d32f2f;
+            --pibito-gold: #D4AF37;
+            --pibito-dark: #1a1a1a;
+            
+            /* Variables generales */
+            --bg-dark: #0f172a; 
+            --accent-red: #d32f2f; 
+            --text-light: #ffffff;
+            --text-dark: #121824;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* El body general ahora es blanco/gris claro por defecto */
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            /* OPACIDAD CAMBIADA DE 0.95 A 0.70 PARA QUE SEA MÁS TRANSPARENTE */
+            background-color: rgba(15, 23, 42, 0.60); 
+            padding: 10px 0; 
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            /* El efecto blur hace que la transparencia se vea elegante tipo cristal */
+            backdrop-filter: blur(8px); 
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px; 
+            flex-wrap: wrap; 
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-logo-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-logo-center {
+            height: 50px; 
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo-center:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent; 
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--accent-red);
+        }
+
+        .nav-links li a.active {
+            border-bottom: 2px solid var(--accent-red);
+        }
+
+        /* --- 1. SECCIÓN INICIO --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 60px; 
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* OPACIDAD CAMBIADA DE 0.7 A 0.4 PARA QUE EL VIDEO SE VEA MÁS CLARO */
+            background: rgba(15, 23, 42, 0.5);
+            z-index: 2;
+        }
+
+        /* --- 2. SECCIÓN BAK & KAY (BLANCO) --- */
+        .about-section {
+            padding: 120px 20px 80px;
+            background-color: #f8f9fa; /* FONDO BLANCO COMO EL CHEF */
+            width: 100%;
+        }
+
+        .about-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .about-logo {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-logo img {
+            max-width: 350px;
+            width: 100%;
+            /* Filtro para invertir el logo blanco a oscuro */
+            filter: invert(1) brightness(0.2); 
+            transition: transform 0.3s ease;
+        }
+
+        .about-logo img:hover {
+            transform: scale(1.02);
+        }
+
+        .about-content {
+            flex: 1.5;
+        }
+
+        .about-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #1e293b; /* TEXTO OSCURO */
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .title-separator {
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-red);
+            margin: 0 0 30px 0;
+            border-radius: 2px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            font-weight: 400; /* Letra visible en blanco */
+            color: #4b5563; /* Gris oscuro */
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        /* --- 3. SECCIÓN RESTAURANTES (TU CÓDIGO ORIGINAL CON FONDO OSCURO) --- */
+        .branches-section {
+            padding: 100px 20px;
+            /* Aquí aplicamos el degradado azul fuerte solo a esta sección */
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            color: #ffffff; /* Texto blanco para esta zona */
+        }
+
+        /* El patrón de puntitos exclusivo para esta sección */
+        .branches-section::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #D4AF37, #F3E5AB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .main-subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .brand-card {
+            position: relative;
+            border-radius: 24px;
+            text-decoration: none;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .card-1 { animation-delay: 0.1s; }
+        .card-2 { animation-delay: 0.2s; }
+        .card-3 { animation-delay: 0.3s; }
+        .card-4 { animation-delay: 0.4s; }
+
+        .brand-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-wrapper {
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .logo-wrapper img {
+            max-height: 100%;
+            max-width: 80%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .brand-card:hover .logo-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1a202c; /* Títulos originales */
+        }
+
+        .card-tagline {
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 25px;
+            opacity: 0.8;
+            color: #718096; /* Subtítulos originales */
+        }
+
+        .explore-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Estilos originales de tus tarjetas */
+        .velerito-theme {
+            background: #ffffff;
+            border-bottom: 8px solid var(--velerito-blue);
+        }
+        .velerito-theme .card-title { color: var(--velerito-blue); }
+        .velerito-theme .explore-btn {
+            background: rgba(26, 75, 132, 0.1);
+            color: var(--velerito-blue);
+        }
+        .velerito-theme:hover .explore-btn {
+            background: var(--velerito-blue);
+            color: #ffffff;
+        }
+
+        .pibinal-theme {
+            background: #ffffff;
+            border-bottom: 8px solid var(--pibinal-red);
+        }
+        .pibinal-theme .card-title { color: var(--pibinal-red); }
+        .pibinal-theme .explore-btn {
+            background: rgba(211, 47, 47, 0.1);
+            color: var(--pibinal-red);
+        }
+        .pibinal-theme:hover .explore-btn {
+            background: var(--pibinal-red);
+            color: #ffffff;
+        }
+
+        .pibito-theme {
+            background: var(--pibito-dark);
+            border-bottom: 8px solid var(--pibito-gold);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .pibito-theme .card-title { color: #ffffff; }
+        .pibito-theme .card-tagline { color: var(--pibito-gold); }
+        .pibito-theme .explore-btn {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--pibito-gold);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .pibito-theme:hover .explore-btn {
+            background: var(--pibito-gold);
+            color: var(--pibito-dark);
+        }
+
+        /* --- 4. SECCIÓN CHEF (BLANCO) --- */
+        .chef-section-wrapper {
+            background-color: #f8f9fa; /* FONDO BLANCO IGUAL QUE BAK & KAY */
+            width: 100%;
+        }
+
+        .chef-section {
+            padding: 100px 20px 60px; /* Reduje un poco el padding inferior */
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .chef-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .chef-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            display: block;
+        }
+
+        .chef-info {
+            flex: 1;
+        }
+
+        .chef-info-decorator {
+            width: 40px;
+            height: 4px;
+            background-color: var(--accent-red);
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+
+        .chef-info h3 {
+            font-size: 2.2rem;
+            color: var(--text-dark); /* TEXTO OSCURO */
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .chef-info p {
+            font-weight: 400; 
+            font-size: 1.05rem;
+            color: #4b5563; /* Gris oscuro para leer bien */
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* --- 5. FOOTER OSCURO PROFESIONAL --- */
+        .site-footer {
+            background-color: #0b101a; /* Tono negro elegante */
+            color: #9ca3af;
+            padding: 60px 20px 30px;
+            border-top: 4px solid var(--accent-red); /* Línea roja sutil arriba */
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand img {
+            height: 60px;
+            width: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.05)); /* Mantiene tu logo visible */
+        }
+
+        .footer-brand p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .footer-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-red);
+        }
+
+        /* Íconos inline en los enlaces */
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: var(--accent-red);
+            transform: translateY(-3px);
+        }
+
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVIDAD --- */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 0 10px 0; }
+            .nav-container { gap: 5px; }
+            .nav-logo-link { order: -1; width: 100%; margin-bottom: 10px; }
+            .nav-logo-center { height: 45px; }
+            .nav-links { gap: 15px; justify-content: center; }
+            .nav-links li a { font-size: 0.75rem; }
+
+            .about-container, .chef-section { flex-direction: column; text-align: center; }
+            .about-section { padding-top: 140px; }
+            .chef-section { padding-top: 80px; }
+            .title-separator, .chef-info-decorator { margin: 0 auto 30px auto; }
+            .main-title { font-size: 32px; }
+
+            /* Ajuste del footer a celular */
+            .footer-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            .footer-brand img { margin: 0 auto 15px; }
+            .footer-brand p { max-width: 100%; margin: 0 auto; }
+            .footer-list { align-items: center; }
+            .social-icons { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <!-- Se corrigió el nombre de los IDs (estaban mal vinculados) -->
+                <li><a href="#inicio" class="nav-item active">Inicio</a></li>
+                <li><a href="#bak-kay" class="nav-item">Bak & Kay</a></li>
+            </ul>
+
+            <a href="#inicio" class="nav-logo-link">
+                <img src="images/logobk.svg" alt="Logo Centro" class="nav-logo-center">
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#restaurantes" class="nav-item">Restaurantes</a></li>
+                <li><a href="#chef" class="nav-item">El Chef</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 1. SECCIÓN INICIO -->
+    <section id="inicio" class="hero section-scroll">
+        <video class="hero-bg" autoplay loop muted playsinline>
+            <source src="images/publicidad.webm" type="video/webm">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <!-- Nuevo contenedor para el logo central -->
+        <div style="position: relative; z-index: 3; text-align: center; animation: fadeInUp 1s ease-out;">
+            <img src="images/logobk.svg" alt="Gastronómica BAK & KAY" style="max-width: 450px; width: 80%; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));">
+        </div>
+    </section>
+
+
+    <!-- 2. SECCIÓN BAK & KAY (FONDO BLANCO CLARO) -->
+    <section id="bak-kay" class="about-section section-scroll">
+        <div class="about-container">
+            <div class="about-logo">
+                <img src="images/logobk.svg" alt="Logo BAK & KAY">
+            </div>
+            <div class="about-content">
+                <h2>GASTRONÓMICA BAK & KAY DEL SURESTE</h2>
+                <div class="title-separator"></div>
+                <p>Somos una familia dedicada a enaltecer las raíces culinarias de nuestra región, fusionando la frescura del mar y el misticismo del sureste mexicano.</p>
+                <p>Cada uno de nuestros conceptos está diseñado para ofrecerte una experiencia inolvidable, donde la tradición, la calidad de nuestros ingredientes y el fuego son los verdaderos protagonistas de la mesa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SECCIÓN RESTAURANTES (ÚNICA SECCIÓN CON AZUL FUERTE Y PUNTOS) -->
+    <section id="restaurantes" class="branches-section section-scroll">
+        <div class="header-section">
+            <h1 class="main-title">NUESTROS RESTAURANTES</h1>
+            <p class="main-subtitle">Conoce nuestros conceptos culinarios</p>
+        </div>
+        
+        <div class="grid-container">
+            <!-- Velerito Tabasco -->
+            <a href="menu-velerito.html" class="brand-card velerito-theme card-1">
+                <div class="logo-wrapper">
+                    <img src="images/logo.svg" alt="Velerito Tabasco Logo">
+                </div>
+                <h2 class="card-title">Velerito Tabasco</h2>
+                <p class="card-tagline">Cocina del Mar en Laja</p>
+                <span class="explore-btn">Ver menú ➔</span>
+            </a>
+
+            <!-- Velerito Cancún -->
+            <a href="menu-velerito-cancun.html" class="brand-card velerito-theme card-2">
+                <div class="logo-wrapper">
+                    <img src="images/logo.svg" alt="Velerito Cancún Logo">
+                </div>
+                <h2 class="card-title">Velerito Cancún</h2>
+                <p class="card-tagline">Sucursal Cancún</p>
+                <span class="explore-btn">Ver menú ➔</span>
+            </a>
+
+            <!-- Pibinal Choco -->
+            <a href="menu-pibinal.html" class="brand-card pibinal-theme card-3">
+                <div class="logo-wrapper">
+                    <img src="images/logopibi.svg" alt="Pibinal Choco Logo">
+                </div>
+                <h2 class="card-title">Pibinal Choco</h2>
+                <p class="card-tagline">"Enterrados Chocos" en el Edén</p>
+                <span class="explore-btn">Ver menú ➔</span>
+            </a>
+
+            <!-- El Pibito -->
+            <a href="menu-pibito.html" class="brand-card pibito-theme card-4">
+                <div class="logo-wrapper">
+                    <img src="images/logopibito.svg" alt="El Pibito Logo">
+                </div>
+                <h2 class="card-title">El Pibito</h2>
+                <p class="card-tagline">Arma el pibito a tu antojo</p>
+                <span class="explore-btn">Ver menú ➔</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 4. SECCIÓN CHEF (FONDO BLANCO CLARO) -->
+    <div class="chef-section-wrapper">
+        <section id="chef" class="chef-section section-scroll">
+            <div class="chef-image">
+                <img src="images/chef.png" alt="Chef Fernando Marrufo">
+            </div>
+            <div class="chef-info">
+                <div class="chef-info-decorator"></div>
+                <h3>Conoce al Chef Fernando Marrufo</h3>
+                <p>Originario del corazón del sureste, el Chef Fernando ha dedicado su trayectoria a explorar y reinterpretar los ingredientes más puros de nuestras costas y selvas. Con un profundo respeto por la cocina de humo y las técnicas ancestrales, lidera las cocinas de Bak & Kay creando platillos con verdadera alma.</p>
+                <p>Su filosofía se basa en el equilibrio perfecto entre la nostalgia de la comida tradicional y la audacia de la gastronomía contemporánea, logrando que cada bocado cuente una historia.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- 5. FOOTER OSCURO Y PROFESIONAL -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            
+            <!-- Columna 1: Marca -->
+            <div class="footer-brand">
+                <img src="images/logobk.svg" alt="Logo Bak & Kay">
+                <p>Enarbolamos las raíces culinarias de nuestra región, fusionando la frescura del mar y el misticismo del sureste mexicano a través del fuego.</p>
+            </div>
+
+            <!-- Columna 2: Contacto -->
+            <div>
+                <h4 class="footer-title">Contacto</h4>
+                <ul class="footer-list">
+                    <!-- Teléfono -->
+                    <li>
+                        <a href="tel:+529991234567" class="footer-link">
+                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                            +52 (999) 123 4567
+                        </a>
+                    </li>
+                    <!-- WhatsApp (enlace a chat directo) -->
+                    <li>
+                        <a href="https://wa.me/529991234567" target="_blank" class="footer-link">
+                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            Mándanos un WhatsApp
+                        </a>
+                    </li>
+                    <!-- Correo -->
+                    <li>
+                        <a href="mailto:contacto@bakandkay.com" class="footer-link">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            contacto@bakandkay.com
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Redes Sociales -->
+            <div>
+                <h4 class="footer-title">Síguenos</h4>
+                <div class="social-icons">
+                    <!-- Facebook -->
+                    <a href="https://facebook.com/" target="_blank" class="social-btn" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 6.05 21.21 11.06 21.96V14.89H8.39V12.06H11.06V9.95C11.06 7.34 12.68 5.89 15.06 5.89C16.19 5.89 17.38 6.09 17.38 6.09V8.56H16.07C14.77 8.56 14.37 9.35 14.37 10.15V12.06H17.26L16.81 14.89H14.37V21.96C19.38 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/" target="_blank" class="social-btn" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2C22 19.4 19.4 22 16.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2ZM7.6 4C5.6 4 4 5.6 4 7.6V16.4C4 18.4 5.6 20 7.6 20H16.4C18.4 20 20 18.4 20 16.4V7.6C20 5.6 18.4 4 16.4 4H7.6ZM12 6.8C14.87 6.8 17.2 9.13 17.2 12C17.2 14.87 14.87 17.2 12 17.2C9.13 17.2 6.8 14.87 6.8 12C6.8 9.13 9.13 6.8 12 6.8ZM12 8.8C10.23 8.8 8.8 10.23 8.8 12C8.8 13.77 10.23 15.2 12 15.2C13.77 15.2 15.2 13.77 15.2 12C15.2 10.23 13.77 8.8 12 8.8ZM17.27 5.53C17.93 5.53 18.47 6.07 18.47 6.73C18.47 7.39 17.93 7.93 17.27 7.93C16.61 7.93 16.07 7.39 16.07 6.73C16.07 6.07 16.61 5.53 17.27 5.53Z"/></svg>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/" target="_blank" class="social-btn" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Bak & Kay del Sureste. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE JAVASCRIPT CORREGIDO (Menú) -->
+    <script>
+        const sections = document.querySelectorAll('.section-scroll');
+        const navLinks = document.querySelectorAll('.nav-item');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
