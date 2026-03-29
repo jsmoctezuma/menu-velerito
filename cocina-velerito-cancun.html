@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Cancún</title>
+    <title>Menú Alimentos Cancún - Velerito</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary-red: #d32f2f;
             --primary-blue: #1A4B84;
-            --dark-bg: #1a1a1a;
-            --light-bg: #f9f9f9;
-            --text-main: #333;
+            --dark-bg: #0f172a;
+            --surface-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
             --premium-gold: #D4AF37;
         }
 
@@ -19,118 +22,136 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            background-color: var(--light-bg);
+            background-color: #f4f6f8;
             background-image: url('images/fndo.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             color: var(--text-main);
-            line-height: 1.6;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
+        /* --- HEADER AZUL OSCURO --- */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            text-align: center;
-            padding: 15px 15px 0 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
         }
 
-        .header-content {
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            padding-bottom: 10px;
-        }
-
-        .logo {
-            width: 60px;
-            height: auto;
-        }
-
-        .header-text {
-            text-align: left;
-        }
-
-        h1 {
-            color: var(--primary-red);
-            font-size: 28px;
-            margin-bottom: 0;
+            gap: 8px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        p.subtitle {
-            font-size: 14px;
-            color: var(--primary-red);
-            font-style: italic;
-            font-weight: bold;
+        .back-link:hover {
+            color: #ffffff;
+            transform: translateX(-3px);
         }
 
-        /* Botón Volver y Botón Inferior */
-        .back-btn-container {
+        .back-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            filter: brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .nav-logo h1 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 0 0 0 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 12px;
+        }
+        
+        @media (max-width: 400px) {
+            .nav-logo h1 { font-size: 1rem; }
+        }
+
+        /* --- BOTÓN VOLVER A CATEGORÍAS --- */
+        .back-to-categories {
             display: none;
-            padding: 10px 0;
-            border-top: 1px solid #eee;
-        }
-
-        .back-btn {
-            background: var(--primary-red);
-            /* Rojo para comida */
+            background: rgba(255, 255, 255, 0.08);
             color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-decoration: none;
-            display: inline-block;
-            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
         }
 
-        .back-btn:hover {
-            background: #b71c1c;
-            /* Rojo ligeramente más oscuro */
-            transform: translateY(-4px);
-            /* Efecto de flotar */
-            box-shadow: 0 8px 18px rgba(211, 47, 47, 0.4);
-            /* Sombra roja brillante */
+        .back-to-categories:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
         }
 
-        .back-btn:active {
-            transform: scale(0.95);
-            /* Efecto de "apachurrar" al hacer clic */
-        }
-
+        /* --- NAVEGACIÓN DESLIZABLE HORIZONTAL --- */
         .nav-wrapper {
             display: none;
-            /* Se activa al entrar a una categoría */
             align-items: center;
-            border-top: 1px solid #eee;
-            padding: 5px 0;
+            padding: 10px 0;
+            background: rgba(11, 17, 32, 0.8);
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2);
         }
 
         .scroll-arrow {
             background: none;
             border: none;
-            color: var(--primary-red);
-            font-size: 20px;
-            font-weight: bold;
-            padding: 5px;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 5px 12px;
             cursor: pointer;
+            transition: color 0.3s;
         }
+
+        .scroll-arrow:hover { color: var(--primary-red); }
 
         nav {
             overflow-x: auto;
@@ -141,26 +162,29 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
-        nav::-webkit-scrollbar {
-            display: none;
-        }
+        nav::-webkit-scrollbar { display: none; }
 
         .cat-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--primary-red);
-            color: var(--primary-red);
-            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 8px 18px;
             margin: 0 5px;
-            border-radius: 20px;
-            font-size: 13px;
+            border-radius: 30px;
+            font-size: 12px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
         }
 
-        .cat-btn.active {
+        .cat-btn:hover, .cat-btn.active {
             background: var(--primary-red);
+            border-color: var(--primary-red);
             color: white;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
         }
 
         .cat-btn.premium {
@@ -168,28 +192,146 @@
             color: var(--premium-gold);
         }
 
-        .cat-btn.premium.active {
+        .cat-btn.premium:hover, .cat-btn.premium.active {
             background: var(--premium-gold);
-            color: white;
+            color: #1a1a1a;
+            border-color: var(--premium-gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
         }
 
+        /* --- LEYENDA PICANTE --- */
         .spicy-legend {
             display: none;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px;
+            background-color: var(--surface-card);
+            padding: 12px;
             text-align: center;
             font-size: 12px;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--primary-red);
-            border-bottom: 1px dashed var(--primary-red);
+            border-bottom: 2px dashed rgba(211, 47, 47, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* CUADRÍCULA ADAPTATIVA */
+        /* --- TÍTULO DE INSTRUCCIÓN PRINCIPAL --- */
+        .page-intro {
+            text-align: center;
+            padding: 30px 20px 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .page-intro h2 {
+            font-size: clamp(2rem, 5vw, 2.6rem);
+            color: var(--primary-red);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .page-intro p {
+            color: var(--primary-blue);
+            font-style: italic;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        /* --- TARJETA DE BIENVENIDA DEL CHEF (NUEVO DISEÑO) --- */
+        .chef-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-left: 6px solid var(--premium-gold);
+            border-radius: 12px;
+            padding: 25px;
+            /* AQUÍ ESTÁ LA CLAVE: margin: 25px auto centra la tarjeta en la pantalla */
+            margin: 25px auto; 
+            max-width: 800px;
+            /* Agregamos un margen interno para móviles para que no toque los bordes */
+            width: calc(100% - 40px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Decoración sutil de comillas en el fondo */
+        .chef-card::after {
+            content: "”";
+            position: absolute;
+            top: -20px;
+            right: 15px;
+            font-size: 120px;
+            color: rgba(212, 175, 55, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .chef-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chef-icon {
+            font-size: 24px;
+            background: rgba(212, 175, 55, 0.15);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .chef-title {
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chef-text {
+            color: var(--text-main);
+            font-style: italic;
+            font-weight: 500;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+            padding-left: 5px;
+            text-align: left; /* Mantiene el texto alineado a la izquierda */
+        }
+
+        .chef-text p {
+            margin-bottom: 8px;
+        }
+        .chef-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chef-signature {
+            text-align: right;
+            margin-top: 15px;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 1.4rem;
+            color: var(--primary-red);
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        /* --- CUADRÍCULA PRINCIPAL (TARJETAS BLANCAS) --- */
         .home-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 20px 15px;
+            gap: 16px;
+            padding: 10px 20px 50px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -197,80 +339,74 @@
         @media (min-width: 768px) {
             .home-grid {
                 grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
+                gap: 24px;
             }
         }
 
         .home-card {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 20px 10px;
+            border-radius: 16px;
+            padding: 30px 15px;
             text-align: center;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
             border: 2px solid transparent;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             cursor: pointer;
-            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .home-card:active {
-            transform: scale(0.95);
-        }
-
-        .home-card.premium {
-            border-color: var(--premium-gold);
-        }
+        .home-card:active { transform: scale(0.95); }
+        .home-card.premium { border-color: rgba(212, 175, 55, 0.6); }
 
         .grid-icon {
-            font-size: 40px;
+            font-size: 48px;
             line-height: 1;
+            transition: transform 0.4s;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
         }
 
         .grid-text {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 800;
             color: var(--primary-blue);
-            line-height: 1.2;
+            line-height: 1.3;
             transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .home-card.premium .grid-text {
-            color: var(--premium-gold);
-        }
+        .home-card.premium .grid-text { color: #b8860b; }
 
-        /* Efecto al pasar el mouse - Tarjetas normales (Rojo) */
         .home-card:hover {
             background: var(--primary-red);
             border-color: var(--primary-red);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(211, 47, 47, 0.35);
         }
 
-        /* Efecto al pasar el mouse - Tarjetas Premium (Dorado) */
         .home-card.premium:hover {
             background: var(--premium-gold);
             border-color: var(--premium-gold);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.35);
         }
 
-        .home-card:hover .grid-text {
-            color: white;
-        }
+        .home-card:hover .grid-text { color: white; }
+        .home-card.premium:hover .grid-text { color: #1a1a1a; }
+        .home-card:hover .grid-icon { transform: scale(1.15); }
 
+        /* --- CONTENEDOR DEL MENÚ INTERIOR --- */
         .menu-container {
             display: none;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px 15px;
+            padding: 40px 20px;
             flex-grow: 1;
             width: 100%;
         }
-
-        .sub-group { margin-bottom: 25px; }
 
         .category-section {
             margin-bottom: 40px;
@@ -282,152 +418,159 @@
             animation: fadeIn 0.5s;
         }
 
+        .sub-group { margin-bottom: 40px; }
+
         .category-title {
             color: var(--primary-red);
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            font-size: 22px;
+            border-bottom: 3px solid var(--primary-red);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .category-title.premium-title {
-            color: var(--premium-gold);
+            color: #b8860b;
             border-bottom-color: var(--premium-gold);
         }
 
         .category-desc {
             font-size: 14px;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
             font-style: italic;
-            font-weight: 500;
+            font-weight: 600;
+            line-height: 1.6;
+            background: rgba(255,255,255,0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
         }
 
         .category-image {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .category-image img {
-            max-width: 120px;
+            max-width: 140px;
             height: auto;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
         }
 
+        /* --- ITEMS (PLATILLOS) - CON SOMBRAS MARCADAS --- */
         .item {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .item-info {
-            width: 75%;
+        .item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-color: rgba(211, 47, 47, 0.25);
         }
+
+        .item-info { flex: 1; }
 
         .item-name {
-            font-weight: bold;
+            font-weight: 800;
             font-size: 16px;
-            margin-bottom: 2px;
+            margin-bottom: 6px;
             color: var(--text-main);
+            line-height: 1.3;
         }
 
         .item-desc {
             font-size: 13px;
-            color: var(--primary-blue);
+            color: var(--text-muted);
             font-style: italic;
-            margin-top: 3px;
+            line-height: 1.5;
         }
 
         .item-price {
-            font-weight: bold;
+            font-weight: 800;
             color: var(--primary-blue);
-            font-size: 16px;
+            font-size: 17px;
             text-align: right;
-            width: 25%;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
+        @media (max-width: 480px) {
+            .item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .item-price {
+                text-align: left;
+                width: 100%;
+                font-size: 16px;
+                padding-top: 5px;
+                border-top: 1px dashed rgba(0,0,0,0.1);
+            }
+        }
+
+        /* --- FOOTER LEGAL --- */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             background-color: var(--dark-bg);
-            color: #ccc;
+            color: #cbd5e1;
             font-size: 12px;
             margin-top: auto;
+            border-top: 4px solid var(--primary-red);
+            line-height: 1.6;
         }
 
-        footer p {
-            margin-bottom: 8px;
-        }
-
-        footer strong {
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .social-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s;
-        }
-
-        .social-link:hover {
-            color: var(--primary-red);
-        }
-
-        .social-icon {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
+        footer p { margin-bottom: 5px; }
+        footer p:last-child { margin-bottom: 0; }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 
 <body>
 
     <header>
-        <div class="header-content">
-            <img src="images/logo.svg" alt="Logo Velerito" class="logo">
-            <div class="header-text">
-                <h1>Menú Cancún</h1>
-                <p class="subtitle">cocina del mar en Laja, Leña y Carbón</p>
+        <div class="top-navbar">
+            <a href="menu-velerito-cancun.html" class="back-link">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Menú Principal
+            </a>
+            
+            <div class="nav-logo" style="display: flex; align-items: center;">
+                <img src="images/logoa.svg" alt="Logo Velerito Cancún" onerror="this.src='images/logo.svg'">
+                <h1>Alimentos</h1>
             </div>
         </div>
 
-        <div class="back-btn-container" id="back-container">
-            <button class="back-btn" onclick="showHome()">🏠 Menú Principal</button>
-        </div>
+        <button class="back-to-categories" id="back-container" onclick="showHome()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Volver a Categorías
+        </button>
 
         <div class="nav-wrapper" id="nav-wrapper">
             <button class="scroll-arrow" onclick="scrollNav(-150)">❮</button>
@@ -440,21 +583,32 @@
         🌶️ Picante Bajo &nbsp;|&nbsp; 🌶️🌶️ Picante Medio &nbsp;|&nbsp; 🌶️🌶️🌶️ Pide Extra Picante
     </div>
 
-    <div id="chef-message" style="text-align: center; margin: 20px auto 10px auto; font-size: 16px; color: var(--primary-blue); font-style: italic; font-weight: 500; max-width: 800px; padding: 0 15px;">
-        <p>Nuestro menú está inspirado en las vivencias y raíces del chef.</p>
-        <p>La mayoría de nuestros productos artesanales y proteínas son traídos desde los mares de Tabasco, Campeche y Yucatán para todos ustedes con cariño.</p>
+    <!-- TÍTULO DE INSTRUCCIÓN PRINCIPAL -->
+    <div class="page-intro" id="page-intro">
+        <h2>Velerito Cancún</h2>
+        <p>Cocina del mar en Laja, Leña y Carbón</p>
     </div>
+
+    <!-- TARJETA DEL CHEF MEJORADA -->
+    <div class="chef-card" id="chef-message">
+        <div class="chef-card-header">
+            <div class="chef-icon">👨‍🍳</div>
+            <div class="chef-title">El Origen del Sabor</div>
+        </div>
+        <div class="chef-text">
+            <p>Nuestro menú está inspirado en las vivencias y raíces del chef.</p>
+            <p>La mayoría de nuestros productos artesanales y proteínas son traídos desde los mares de Tabasco, Campeche y Yucatán para todos ustedes con cariño.</p>
+        </div>
+        <div class="chef-signature">- Fernando Marrufo</div>
+    </div>
+
     <div id="home-view" class="home-grid"></div>
+    
     <div class="menu-container" id="menu-content"></div>
-    <div id="return-home-container" style="text-align: center; padding: 20px 15px 40px 15px;">
-        <a href="menu-velerito-cancun.html" class="back-btn">
-            ⬅ Volver a Elegir Menú
-        </a>
-    </div>
+
     <footer>
         <p>Todos los precios incluyen IVA. La propina no es obligatoria, se gana a través del buen servicio.</p>
-        <p>Se aceptan tarjetas (VISA, MASTERCARD y AMERICAN EXPRESS). El precio es el mismo pagando en efectivo o con
-            tarjeta.</p>
+        <p>Se aceptan tarjetas VISA, MASTERCARD y AMERICAN EXPRESS. El precio es el mismo pagando en efectivo o con tarjeta.</p>
     </footer>
 
     <script>
@@ -679,20 +833,17 @@
                     { name: "Camarones del Golfo Combinada", price: "$2,200 | $4,450", desc: "(la charola más rica de la casa ahora con manitas de cangrejo moro)" },
                     { name: "De Atún Laminado", price: "$1,850 | $3,750", desc: "(con salsa rasurada)" },
                     
-                    // --- SUBDIVISIÓN ESPAGUETI ---
                     { name: "<span style='color: var(--primary-red); font-size: 17px;'>Espagueti Cremoso Al Chiltepín 🌶️</span>", price: "", desc: "(con aguacate al carbón)" },
                     { name: "• Con Pulpo", price: "$1,750 | $3,550", desc: "" },
                     { name: "• Con Camarón", price: "$1,600 | $3,250", desc: "" },
                     { name: "• Combinada", price: "$1,850 | $3,750", desc: "" },
 
-                    // --- SUBDIVISIÓN FETUCHINI ---
                     { name: "<span style='color: var(--primary-red); font-size: 17px;'>Fetuchini Cremoso</span>", price: "", desc: "(con quesos Tabasqueños y calabacines)" },
                     { name: "• Con Pulpo", price: "$1,750 | $3,550", desc: "" },
                     { name: "• Con Camarón", price: "$1,600 | $3,250", desc: "" },
                     { name: "• Combinada", price: "$1,850 | $3,750", desc: "" }
                 ]
             },
-
             {
                 icon: "🍔",
                 category: "Hamburguesas",
@@ -740,38 +891,38 @@
         const menuContent = document.getElementById('menu-content');
         const spicyLegend = document.getElementById('spicy-legend');
         const backContainer = document.getElementById('back-container');
+        const pageIntro = document.getElementById('page-intro');
 
         function init() {
             menuData.forEach((cat, index) => {
-                // Tarjetas cuadrícula
                 const card = document.createElement('div');
                 card.className = `home-card ${cat.isPremium ? 'premium' : ''}`;
                 card.onclick = () => showCategory(index);
                 card.innerHTML = `<div class="grid-icon">${cat.icon}</div><div class="grid-text">${cat.category}</div>`;
                 homeGrid.appendChild(card);
 
-                // Botones nav superior
                 const btn = document.createElement('button');
                 btn.className = `cat-btn ${cat.isPremium ? 'premium' : ''}`;
-                btn.innerText = cat.category;
+                btn.innerHTML = `${cat.icon} &nbsp; ${cat.category}`;
                 btn.onclick = () => showCategory(index);
                 categoryNav.appendChild(btn);
 
-                // Secciones menú
                 const section = document.createElement('div');
                 section.className = 'category-section';
                 section.id = `cat-${index}`;
                 let html = '';
-                // Solo renderizar el titulo general si NO tiene subgrupos
+                
                 if (!cat.groups) {
                     html += `<h2 class="category-title ${cat.isPremium ? 'premium-title' : ''}">${cat.icon} ${cat.category}</h2>`;
                 }
+
                 if (cat.description) html += `<p class="category-desc">${cat.description}</p>`;
-                if (cat.image) html += `<div class="category-image"><img src="${cat.image}" alt="Sello"></div>`;
+                if (cat.image) html += `<div class="category-image"><img src="${cat.image}" alt="Sello Especial"></div>`;
+
                 if (cat.groups) {
                     cat.groups.forEach(group => {
                         html += `<div class="sub-group">`;
-                        html += `<h2 class="category-title" style="font-size: 18px; margin-top: 15px;">${cat.icon} ${group.title}</h2>`;
+                        html += `<h2 class="category-title ${cat.isPremium ? 'premium-title' : ''}">${cat.icon} ${group.title}</h2>`;
                         group.items.forEach(item => {
                             html += `<div class="item"><div class="item-info"><div class="item-name">${item.name}</div>${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}</div><div class="item-price">${item.price}</div></div>`;
                         });
@@ -788,28 +939,26 @@
         }
 
         function showCategory(index) {
-            // ESTA LÍNEA OCULTA EL BOTÓN DE VOLVER AL INICIO CUANDO ENTRAS A UNA CATEGORÍA
-            document.getElementById('return-home-container').style.display = 'none';
-
             chefMessage.style.display = 'none';
             homeGrid.style.display = 'none';
+            pageIntro.style.display = 'none';
             menuContent.style.display = 'block';
             navWrapper.style.display = 'flex';
-            backContainer.style.display = 'block';
+            backContainer.style.display = 'flex';
             spicyLegend.style.display = 'block';
+            
             document.querySelectorAll('.cat-btn').forEach((b, i) => b.classList.toggle('active', i === index));
             document.querySelectorAll('.category-section').forEach((s, i) => s.classList.toggle('active', i === index));
+            
             const activeBtn = document.querySelectorAll('.cat-btn')[index];
             if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
             window.scrollTo(0, 0);
         }
 
         function showHome() {
-            // ESTA LÍNEA VUELVE A MOSTRAR EL BOTÓN SOLO EN LA PÁGINA PRINCIPAL
-            document.getElementById('return-home-container').style.display = 'block';
-
             chefMessage.style.display = 'block';
             homeGrid.style.display = 'grid';
+            pageIntro.style.display = 'block';
             menuContent.style.display = 'none';
             navWrapper.style.display = 'none';
             backContainer.style.display = 'none';
@@ -822,5 +971,4 @@
         init();
     </script>
 </body>
-
 </html>

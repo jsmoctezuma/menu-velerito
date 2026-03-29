@@ -4,21 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gastronómica BAK & KAY del Sureste</title>
-    <!-- Importar fuente elegante de Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* Variables originales */
             --velerito-blue: #1A4B84;
             --pibinal-red: #d32f2f;
             --pibito-gold: #D4AF37;
             --pibito-dark: #1a1a1a;
-            
-            /* Variables generales */
-            --bg-dark: #0f172a; 
-            --accent-red: #d32f2f; 
+
+            --bg-dark: #0f172a;
+            --bg-darker: #0b1220;
+            --accent-red: #d32f2f;
+            --accent-red-dark: #b71c1c;
             --text-light: #ffffff;
             --text-dark: #121824;
+            --text-muted: #4b5563;
+            --text-soft: #64748b;
+            --surface-light: #f8f9fa;
+            --surface-card: #ffffff;
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 24px 50px rgba(0, 0, 0, 0.18);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --max-width: 1120px;
         }
 
         * {
@@ -33,96 +45,110 @@
         }
 
         body {
-            /* El body general ahora es blanco/gris claro por defecto */
-            background-color: #f8f9fa;
+            background-color: var(--surface-light);
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.65;
             overflow-x: hidden;
         }
 
-        /* --- BARRA DE NAVEGACIÓN --- */
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a, button {
+            transition: all 0.3s ease;
+        }
+
+        .section-scroll {
+            scroll-margin-top: 110px;
+        }
+
+        p {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* --- NAVBAR --- */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            /* OPACIDAD CAMBIADA DE 0.95 A 0.70 PARA QUE SEA MÁS TRANSPARENTE */
-            background-color: rgba(15, 23, 42, 0.60); 
-            padding: 10px 0; 
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            /* El efecto blur hace que la transparencia se vea elegante tipo cristal */
-            backdrop-filter: blur(8px); 
+            background: rgba(15, 23, 42, 0.68);
+            padding: 10px 18px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            gap: 40px; 
-            flex-wrap: wrap; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
         }
 
         .nav-links {
             display: flex;
+            align-items: center;
             list-style: none;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-logo-link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .nav-logo-center {
-            height: 50px; 
-            width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-logo-center:hover {
-            transform: scale(1.05);
+            gap: 26px;
         }
 
         .nav-links li a {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: color 0.3s;
-            padding-bottom: 5px;
-            border-bottom: 2px solid transparent; 
+            padding: 12px 4px 10px;
+            border-bottom: 2px solid transparent;
         }
 
-        .nav-links li a:hover, .nav-links li a.active {
+        .nav-links li a:hover,
+        .nav-links li a.active {
             color: var(--accent-red);
         }
 
         .nav-links li a.active {
-            border-bottom: 2px solid var(--accent-red);
+            border-bottom-color: var(--accent-red);
         }
 
-        /* --- 1. SECCIÓN INICIO --- */
+        .nav-logo-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .nav-logo-center {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo-center:hover {
+            transform: scale(1.04);
+        }
+
+        /* --- HERO --- */
         .hero {
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding-top: 60px; 
+            padding: 110px 20px 60px;
         }
 
         .hero-bg {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -131,28 +157,74 @@
 
         .hero-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* OPACIDAD CAMBIADA DE 0.7 A 0.4 PARA QUE EL VIDEO SE VEA MÁS CLARO */
-            background: rgba(15, 23, 42, 0.5);
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.58));
             z-index: 2;
         }
 
-        /* --- 2. SECCIÓN BAK & KAY (BLANCO) --- */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-logo {
+            max-width: 460px;
+            width: min(80vw, 460px);
+            margin: 0 auto 22px;
+            filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.45));
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            max-width: 760px;
+            margin: 0 auto 24px;
+            text-align: center;
+        }
+
+        .hero-anchor {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 22px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+        }
+
+        .hero-anchor:hover {
+            background: rgba(211, 47, 47, 0.18);
+            border-color: rgba(211, 47, 47, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* --- ABOUT --- */
         .about-section {
-            padding: 120px 20px 80px;
-            background-color: #f8f9fa; /* FONDO BLANCO COMO EL CHEF */
+            padding: 120px 20px 90px;
+            background-color: var(--surface-light);
             width: 100%;
         }
 
         .about-container {
-            max-width: 1100px;
+            max-width: var(--max-width);
             margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 60px;
+            gap: 64px;
         }
 
         .about-logo {
@@ -162,10 +234,9 @@
         }
 
         .about-logo img {
-            max-width: 350px;
+            max-width: 360px;
             width: 100%;
-            /* Filtro para invertir el logo blanco a oscuro */
-            filter: invert(1) brightness(0.2); 
+            filter: invert(1) brightness(0.18);
             transition: transform 0.3s ease;
         }
 
@@ -174,37 +245,44 @@
         }
 
         .about-content {
-            flex: 1.5;
+            flex: 1.45;
         }
 
         .about-content h2 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #1e293b; /* TEXTO OSCURO */
-            letter-spacing: 2px;
+            font-size: clamp(1.9rem, 3vw, 2.35rem);
+            margin-bottom: 18px;
+            color: #1e293b;
+            letter-spacing: 1.5px;
             font-weight: 800;
+            line-height: 1.15;
         }
 
         .title-separator {
-            width: 60px;
+            width: 64px;
             height: 4px;
             background-color: var(--accent-red);
-            margin: 0 0 30px 0;
-            border-radius: 2px;
+            margin: 0 0 28px 0;
+            border-radius: 999px;
         }
 
         .about-content p {
-            font-size: 1.1rem;
-            font-weight: 400; /* Letra visible en blanco */
-            color: #4b5563; /* Gris oscuro */
-            text-align: justify;
-            margin-bottom: 15px;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            max-width: 64ch;
+            line-height: 1.85;
         }
 
-        /* --- 3. SECCIÓN RESTAURANTES (TU CÓDIGO ORIGINAL CON FONDO OSCURO) --- */
+        .about-content p:first-of-type {
+            font-size: 1.08rem;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* --- RESTAURANTES (NUEVO DISEÑO SIMÉTRICO) --- */
         .branches-section {
-            padding: 100px 20px;
-            /* Aquí aplicamos el degradado azul fuerte solo a esta sección */
+            padding: 110px 20px;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             width: 100%;
             display: flex;
@@ -212,14 +290,13 @@
             align-items: center;
             position: relative;
             z-index: 1;
-            color: #ffffff; /* Texto blanco para esta zona */
+            color: #ffffff;
         }
 
-        /* El patrón de puntitos exclusivo para esta sección */
         .branches-section::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
             background-size: 20px 20px;
             z-index: -1;
@@ -227,11 +304,12 @@
 
         .header-section {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            padding: 0 12px;
         }
 
         .main-title {
-            font-size: 42px;
+            font-size: clamp(2.1rem, 5vw, 2.7rem);
             font-weight: 800;
             letter-spacing: 2px;
             margin-bottom: 10px;
@@ -242,41 +320,45 @@
         }
 
         .main-subtitle {
-            font-size: 18px;
+            font-size: 0.98rem;
             color: #94a3b8;
-            font-weight: 300;
-            letter-spacing: 4px;
+            font-weight: 400;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            text-align: center;
         }
 
+        /* GRID SIMÉTRICO: Forzamos 2 columnas en PC y 1 en móviles */
         .grid-container {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr; /* Móviles (1 por fila) */
             gap: 30px;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1150px;
         }
 
         @media (min-width: 768px) {
             .grid-container {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(2, 1fr); /* PC y Tablets grandes (2 por fila siempre) */
             }
         }
 
+        /* Base de la Tarjeta */
         .brand-card {
             position: relative;
-            border-radius: 24px;
+            border-radius: var(--radius-md);
             text-decoration: none;
-            padding: 40px 20px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+            align-items: center;
+            min-height: 420px; /* Un poco más alta para que quepa todo perfecto */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             animation: fadeInUp 0.8s ease-out backwards;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .card-1 { animation-delay: 0.1s; }
@@ -284,122 +366,216 @@
         .card-3 { animation-delay: 0.3s; }
         .card-4 { animation-delay: 0.4s; }
 
-        .brand-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        /* Capa Oscura Base */
+        .card-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.65), rgba(15, 23, 42, 0.95));
+            z-index: 1;
+            transition: all 0.5s ease;
         }
 
+        /* Efecto Zoom a la Foto de Fondo */
+        .brand-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: inherit; 
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .brand-card:hover::before {
+            transform: scale(1.12); 
+        }
+        
+        .brand-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Etiqueta de Ubicación (Tag superior) */
+        .location-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 3;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Contenedor del Logo y Textos */
+        .card-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* LOGO Central */
         .logo-wrapper {
-            height: 110px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
-            width: 100%;
+            margin-bottom: 20px; /* Espacio entre logo y texto */
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: brightness(0) invert(1) drop-shadow(0 4px 10px rgba(0,0,0,0.3)); 
         }
 
         .logo-wrapper img {
             max-height: 100%;
-            max-width: 80%;
+            max-width: 85%;
             object-fit: contain;
-            transition: transform 0.5s ease;
         }
 
-        .brand-card:hover .logo-wrapper img {
-            transform: scale(1.1);
+        /* Contenedor de Texto e Interacción */
+        .card-reveal-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            transition: all 0.4s ease;
         }
 
+        /* Título SIEMPRE VISIBLE debajo del logo */
         .card-title {
             font-size: 22px;
             font-weight: 800;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #1a202c; /* Títulos originales */
+            color: #ffffff;
+            text-align: center;
+            transition: color 0.4s ease; 
+        }
+
+        /* Tagline y Botón Ocultos al inicio */
+        .card-tagline, .explore-btn {
+            opacity: 0;
+            max-height: 0; 
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transición más fluida */
         }
 
         .card-tagline {
             font-size: 14px;
             font-style: italic;
-            margin-bottom: 25px;
-            opacity: 0.8;
-            color: #718096; /* Subtítulos originales */
+            color: rgba(255, 255, 255, 0.85);
+            text-align: center;
         }
 
         .explore-btn {
-            padding: 10px 25px;
             border-radius: 30px;
-            font-weight: bold;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            background: transparent;
+            border: 2px solid #ffffff;
         }
 
-        /* Estilos originales de tus tarjetas */
-        .velerito-theme {
-            background: #ffffff;
-            border-bottom: 8px solid var(--velerito-blue);
+        /* --- ANIMACIONES HOVER --- */
+        
+        .brand-card:hover .logo-wrapper {
+            transform: translateY(-10px) scale(0.9);
+            margin-bottom: 10px;
         }
-        .velerito-theme .card-title { color: var(--velerito-blue); }
-        .velerito-theme .explore-btn {
-            background: rgba(26, 75, 132, 0.1);
-            color: var(--velerito-blue);
+
+        .brand-card:hover .card-tagline {
+            opacity: 1;
+            max-height: 50px;
+            margin-bottom: 25px; /* Espacio entre el tagline y el botón */
+            transform: translateY(0);
+        }
+
+        .brand-card:hover .explore-btn {
+            opacity: 1;
+            max-height: 60px; 
+            padding: 12px 28px; /* Aquí le damos tamaño real al botón al aparecer */
+            transform: translateY(0);
+        }
+
+        /* --- COLORES DE MARCA AL HACER HOVER --- */
+
+        /* Velerito (Azul) */
+        .velerito-theme:hover .card-bg-overlay {
+            background: linear-gradient(to bottom, rgba(26, 75, 132, 0.75), rgba(15, 23, 42, 0.95));
+        }
+        .velerito-theme:hover .card-title {
+            color: #64b5f6; 
         }
         .velerito-theme:hover .explore-btn {
             background: var(--velerito-blue);
-            color: #ffffff;
+            border-color: var(--velerito-blue);
         }
 
-        .pibinal-theme {
-            background: #ffffff;
-            border-bottom: 8px solid var(--pibinal-red);
+        /* Pibinal (Rojo) */
+        .pibinal-theme:hover .card-bg-overlay {
+            background: linear-gradient(to bottom, rgba(211, 47, 47, 0.75), rgba(15, 23, 42, 0.95));
         }
-        .pibinal-theme .card-title { color: var(--pibinal-red); }
-        .pibinal-theme .explore-btn {
-            background: rgba(211, 47, 47, 0.1);
-            color: var(--pibinal-red);
+        .pibinal-theme:hover .card-title {
+            color: #ef5350; 
         }
         .pibinal-theme:hover .explore-btn {
             background: var(--pibinal-red);
-            color: #ffffff;
+            border-color: var(--pibinal-red);
         }
 
-        .pibito-theme {
-            background: var(--pibito-dark);
-            border-bottom: 8px solid var(--pibito-gold);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-left: 1px solid rgba(255,255,255,0.1);
-            border-right: 1px solid rgba(255,255,255,0.1);
+        /* El Pibito (Dorado) */
+        .pibito-theme:hover .card-bg-overlay {
+            background: linear-gradient(to bottom, rgba(212, 175, 55, 0.65), rgba(26, 26, 26, 0.95));
         }
-        .pibito-theme .card-title { color: #ffffff; }
-        .pibito-theme .card-tagline { color: var(--pibito-gold); }
-        .pibito-theme .explore-btn {
-            background: rgba(212, 175, 55, 0.15);
-            color: var(--pibito-gold);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        .pibito-theme:hover .card-title {
+            color: var(--pibito-gold); 
         }
         .pibito-theme:hover .explore-btn {
             background: var(--pibito-gold);
-            color: var(--pibito-dark);
+            border-color: var(--pibito-gold);
+            color: #1a1a1a; 
+        }
+        
+        .explore-btn:hover {
+            transform: translateY(-2px) scale(1.05) !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            filter: brightness(1.1);
         }
 
-        /* --- 4. SECCIÓN CHEF (BLANCO) --- */
+        /* --- CHEF --- */
         .chef-section-wrapper {
-            background-color: #f8f9fa; /* FONDO BLANCO IGUAL QUE BAK & KAY */
+            background-color: var(--surface-light);
             width: 100%;
         }
 
         .chef-section {
-            padding: 100px 20px 60px; /* Reduje un poco el padding inferior */
-            max-width: 1100px;
+            padding: 100px 20px 72px;
+            max-width: var(--max-width);
             margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 56px;
         }
 
         .chef-image {
@@ -410,14 +586,14 @@
 
         .chef-image img {
             width: 100%;
-            max-width: 400px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 410px;
+            border-radius: 18px;
+            box-shadow: var(--shadow-soft);
             display: block;
         }
 
         .chef-info {
-            flex: 1;
+            flex: 1.05;
         }
 
         .chef-info-decorator {
@@ -425,161 +601,437 @@
             height: 4px;
             background-color: var(--accent-red);
             margin-bottom: 15px;
-            border-radius: 2px;
+            border-radius: 999px;
         }
 
         .chef-info h3 {
-            font-size: 2.2rem;
-            color: var(--text-dark); /* TEXTO OSCURO */
+            font-size: clamp(1.9rem, 3vw, 2.3rem);
+            color: var(--text-dark);
             margin-bottom: 20px;
-            line-height: 1.2;
+            line-height: 1.15;
             font-weight: 800;
         }
 
         .chef-info p {
-            font-weight: 400; 
-            font-size: 1.05rem;
-            color: #4b5563; /* Gris oscuro para leer bien */
+            font-weight: 400;
+            font-size: 1.03rem;
+            color: var(--text-muted);
             margin-bottom: 15px;
-            text-align: justify;
+            line-height: 1.85;
+            max-width: 64ch;
         }
 
-        /* --- 5. FOOTER OSCURO PROFESIONAL --- */
+        .chef-info p:first-of-type {
+            color: #374151;
+        }
+
+        /* --- FOOTER REHECHO --- */
         .site-footer {
-            background-color: #0b101a; /* Tono negro elegante */
-            color: #9ca3af;
-            padding: 60px 20px 30px;
-            border-top: 4px solid var(--accent-red); /* Línea roja sutil arriba */
+            background: linear-gradient(180deg, #0f1728 0%, #0b1120 100%);
+            color: #cbd5e1;
+            padding: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .footer-inner {
-            max-width: 1100px;
+        .footer-top {
+            max-width: var(--max-width);
             margin: 0 auto;
+            padding: 26px 20px 18px;
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1.55fr auto;
+            gap: 22px;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
         }
 
         .footer-brand img {
-            height: 60px;
-            width: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.05)); /* Mantiene tu logo visible */
+            width: 60px;
+            height: auto;
+            margin: 0;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
         }
 
         .footer-brand p {
+            margin: 0;
             font-size: 0.95rem;
-            line-height: 1.6;
-            max-width: 90%;
+            line-height: 1.72;
+            color: #aeb7c7;
+            max-width: 58ch;
         }
 
-        .footer-title {
-            color: #ffffff;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .footer-list {
-            list-style: none;
+        .footer-cta {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer-cta a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 40px;
+            padding: 0 14px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: #fff;
+            background: var(--accent-red);
+            font-weight: 700;
+            font-size: 0.86rem;
+            letter-spacing: 0.2px;
+            box-shadow: 0 8px 18px rgba(211, 47, 47, 0.18);
+        }
+
+        .footer-cta a:hover {
+            background: var(--accent-red-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(211, 47, 47, 0.24);
+        }
+
+        .footer-cta a svg {
+            width: 15px;
+            height: 15px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .footer-main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 20px 20px 16px;
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 30px; 
+            align-items: start;
+        }
+
+        .footer-block h4 {
+            font-size: 0.95rem;
+            color: #ffffff;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+
+        .footer-branches {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
         }
 
         .footer-link {
-            color: #cbd5e1;
             text-decoration: none;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
+            display: inline-flex;
+            align-items: flex-start;
             gap: 10px;
-            transition: color 0.3s ease;
+            line-height: 1.5;
+            transition: transform 0.25s ease;
+            padding-top: 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .footer-link:hover {
-            color: var(--accent-red);
+            transform: translateX(2px);
         }
 
-        /* Íconos inline en los enlaces */
+        .footer-link:hover svg,
+        .footer-link:hover .footer-link-text strong,
+        .footer-link:hover .footer-link-text span {
+            color: var(--accent-red);
+            fill: var(--accent-red);
+            transition: color 0.25s ease, fill 0.25s ease;
+        }
+
         .footer-link svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
+            width: 16px;
+            height: 16px;
+            margin-top: 4px;
+            flex-shrink: 0;
+            fill: #cbd5e1;
+            transition: fill 0.25s ease;
+        }
+
+        .footer-link-text {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap; 
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-link-text strong {
+            font-size: 0.93rem;
+            font-weight: 700;
+            color: #f8fafc;
+            transition: color 0.25s ease;
+            white-space: nowrap; 
+        }
+
+        .footer-link-text span {
+            font-size: 0.84rem;
+            color: #94a3b8;
+            transition: color 0.25s ease;
+            white-space: nowrap; 
+        }
+
+        /* --- BLOQUE SOCIAL HORIZONTAL --- */
+        .footer-social {
+            justify-self: start;
+        }
+
+        .social-horizontal-container {
+            display: flex;
+            align-items: center;
+            gap: 16px; 
+            flex-wrap: wrap;
+        }
+
+        .social-text {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 0;
+            flex: 1;
+            min-width: 200px; 
         }
 
         .social-icons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
+            flex-shrink: 0;
         }
 
         .social-btn {
+            width: 42px; 
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e5e7eb;
             display: flex;
-            justify-content: center;
             align-items: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            color: #ffffff;
+            justify-content: center;
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .social-btn:hover {
-            background-color: var(--accent-red);
+            background: rgba(211, 47, 47, 0.12);
+            border-color: rgba(211, 47, 47, 0.28);
+            color: #ffffff;
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.15);
         }
 
         .social-btn svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
 
         .footer-bottom {
-            max-width: 1100px;
-            margin: 40px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            font-size: 0.85rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 14px 20px 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             color: #64748b;
+            font-size: 0.86rem;
         }
 
-        /* Animaciones */
+        .footer-bottom p {
+            text-align: left;
+            max-width: 100%;
+        }
+
+        /* --- ANIMACIONES --- */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* --- RESPONSIVIDAD --- */
-        @media (max-width: 768px) {
-            .navbar { padding: 15px 0 10px 0; }
-            .nav-container { gap: 5px; }
-            .nav-logo-link { order: -1; width: 100%; margin-bottom: 10px; }
-            .nav-logo-center { height: 45px; }
-            .nav-links { gap: 15px; justify-content: center; }
-            .nav-links li a { font-size: 0.75rem; }
-
-            .about-container, .chef-section { flex-direction: column; text-align: center; }
-            .about-section { padding-top: 140px; }
-            .chef-section { padding-top: 80px; }
-            .title-separator, .chef-info-decorator { margin: 0 auto 30px auto; }
-            .main-title { font-size: 32px; }
-
-            /* Ajuste del footer a celular */
-            .footer-inner {
+        /* --- RESPONSIVE --- */
+        @media (max-width: 950px) {
+            .nav-container {
+                gap: 20px;
+            }
+            .nav-links {
+                gap: 18px;
+            }
+            .about-container,
+            .chef-section {
+                gap: 36px;
+            }
+            .footer-branches {
                 grid-template-columns: 1fr;
-                text-align: center;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .footer-top,
+            .footer-main {
+                grid-template-columns: 1fr;
                 gap: 30px;
             }
-            .footer-brand img { margin: 0 auto 15px; }
-            .footer-brand p { max-width: 100%; margin: 0 auto; }
-            .footer-list { align-items: center; }
-            .social-icons { justify-content: center; }
+            .social-horizontal-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .social-text {
+                min-width: 100%;
+            }
+            .footer-social {
+                justify-self: start;
+            }
+            .footer-cta {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 14px 10px;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-logo-link {
+                order: -1;
+            }
+            .nav-logo-center {
+                height: 46px;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                gap: 14px;
+                flex-wrap: wrap;
+            }
+            .nav-links li a {
+                font-size: 0.76rem;
+                padding: 8px 2px;
+            }
+            .hero {
+                min-height: 100svh;
+                padding: 120px 20px 56px;
+            }
+            .hero-logo {
+                width: min(84vw, 360px);
+                margin-bottom: 18px;
+            }
+            .hero-subtitle {
+                font-size: 0.94rem;
+                line-height: 1.75;
+                padding: 0 6px;
+                text-align: center;
+            }
+            .about-section {
+                padding: 130px 20px 80px;
+            }
+            .about-container,
+            .chef-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-content,
+            .chef-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-content h2,
+            .chef-info h3 {
+                text-align: center;
+            }
+            .title-separator,
+            .chef-info-decorator {
+                margin: 0 auto 26px auto;
+            }
+            .about-content p,
+            .chef-info p {
+                text-align justify;
+                font-size: 1rem;
+                max-width: 100%;
+            }
+            .main-subtitle {
+                letter-spacing: 2px;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+            
+            /* Responsive en las tarjetas de restaurante */
+            .brand-card {
+                min-height: 380px;
+            }
+            
+            .chef-section {
+                padding: 88px 20px 64px;
+            }
+            .footer-top {
+                padding-top: 24px;
+                gap: 18px;
+            }
+            .footer-brand {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .footer-brand img {
+                width: 58px;
+            }
+            .footer-brand p {
+                max-width: 100%;
+            }
+            .footer-bottom p {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding-inline: 10px;
+            }
+            .nav-links {
+                gap: 10px 14px;
+            }
+            .nav-links li a {
+                font-size: 0.72rem;
+                letter-spacing: 0.7px;
+            }
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+            .hero-anchor {
+                width: 100%;
+                max-width: 260px;
+            }
+            .about-content h2,
+            .chef-info h3 {
+                font-size: 1.85rem;
+            }
+            .footer-cta a {
+                min-height: 38px;
+                padding: 0 13px;
+                font-size: 0.82rem;
+            }
         }
     </style>
 </head>
@@ -589,13 +1041,12 @@
     <nav class="navbar">
         <div class="nav-container">
             <ul class="nav-links">
-                <!-- Se corrigió el nombre de los IDs (estaban mal vinculados) -->
                 <li><a href="#inicio" class="nav-item active">Inicio</a></li>
                 <li><a href="#bak-kay" class="nav-item">Bak & Kay</a></li>
             </ul>
 
             <a href="#inicio" class="nav-logo-link">
-                <img src="images/logobk.svg" alt="Logo Centro" class="nav-logo-center">
+                <img src="images/logobk.svg" alt="Logo Bak & Kay" class="nav-logo-center">
             </a>
 
             <ul class="nav-links">
@@ -611,20 +1062,23 @@
             <source src="images/publicidad.webm" type="video/webm">
         </video>
         <div class="hero-overlay"></div>
-        
-        <!-- Nuevo contenedor para el logo central -->
-        <div style="position: relative; z-index: 3; text-align: center; animation: fadeInUp 1s ease-out;">
-            <img src="images/logobk.svg" alt="Gastronómica BAK & KAY" style="max-width: 450px; width: 80%; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));">
+
+        <div class="hero-content">
+            <img src="images/logobk.svg" alt="Gastronómica BAK & KAY" class="hero-logo">
+            <p class="hero-subtitle">
+                Sabores del sureste mexicano: laja, leña y carbón reunidos en una experiencia culinaria con identidad propia.
+            </p>
+            <a href="#restaurantes" class="hero-anchor">Conoce nuestros conceptos</a>
         </div>
     </section>
 
-
-    <!-- 2. SECCIÓN BAK & KAY (FONDO BLANCO CLARO) -->
+    <!-- 2. SECCIÓN BAK & KAY -->
     <section id="bak-kay" class="about-section section-scroll">
         <div class="about-container">
             <div class="about-logo">
                 <img src="images/logobk.svg" alt="Logo BAK & KAY">
             </div>
+
             <div class="about-content">
                 <h2>GASTRONÓMICA BAK & KAY DEL SURESTE</h2>
                 <div class="title-separator"></div>
@@ -634,133 +1088,186 @@
         </div>
     </section>
 
-    <!-- 3. SECCIÓN RESTAURANTES (ÚNICA SECCIÓN CON AZUL FUERTE Y PUNTOS) -->
+    <!-- 3. SECCIÓN RESTAURANTES -->
     <section id="restaurantes" class="branches-section section-scroll">
         <div class="header-section">
             <h1 class="main-title">NUESTROS RESTAURANTES</h1>
             <p class="main-subtitle">Conoce nuestros conceptos culinarios</p>
         </div>
-        
+
         <div class="grid-container">
+            
             <!-- Velerito Tabasco -->
-            <a href="menu-velerito.html" class="brand-card velerito-theme card-1">
-                <div class="logo-wrapper">
-                    <img src="images/logo.svg" alt="Velerito Tabasco Logo">
+            <a href="menu-velerito.html" class="brand-card velerito-theme card-1" style="background-image: url('images/bg-velerito-villa.jpg');">
+                <div class="card-bg-overlay"></div>
+                <div class="location-tag">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Villahermosa
                 </div>
-                <h2 class="card-title">Velerito Tabasco</h2>
-                <p class="card-tagline">Cocina del Mar en Laja</p>
-                <span class="explore-btn">Ver menú ➔</span>
+                
+                <div class="card-content">
+                    <div class="logo-wrapper">
+                        <img src="images/logoa.svg" alt="Velerito Tabasco Logo">
+                    </div>
+                    
+                    <div class="card-reveal-area">
+                        <h2 class="card-title">Velerito Tabasco</h2>
+                        <p class="card-tagline">Cocina del Mar en Laja</p>
+                        <span class="explore-btn">Ver menú</span>
+                    </div>
+                </div>
             </a>
 
             <!-- Velerito Cancún -->
-            <a href="menu-velerito-cancun.html" class="brand-card velerito-theme card-2">
-                <div class="logo-wrapper">
-                    <img src="images/logo.svg" alt="Velerito Cancún Logo">
+            <a href="menu-velerito-cancun.html" class="brand-card velerito-theme card-2" style="background-image: url('images/bg-velerito-cancun.jpg');">
+                <div class="card-bg-overlay"></div>
+                <div class="location-tag">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Cancún
                 </div>
-                <h2 class="card-title">Velerito Cancún</h2>
-                <p class="card-tagline">Sucursal Cancún</p>
-                <span class="explore-btn">Ver menú ➔</span>
+
+                <div class="card-content">
+                    <div class="logo-wrapper">
+                        <img src="images/logoa.svg" alt="Velerito Cancún Logo">
+                    </div>
+                    
+                    <div class="card-reveal-area">
+                        <h2 class="card-title">Velerito Cancún</h2>
+                        <p class="card-tagline">Sucursal Cancún</p>
+                        <span class="explore-btn">Ver menú</span>
+                    </div>
+                </div>
             </a>
 
             <!-- Pibinal Choco -->
-            <a href="menu-pibinal.html" class="brand-card pibinal-theme card-3">
-                <div class="logo-wrapper">
-                    <img src="images/logopibi.svg" alt="Pibinal Choco Logo">
+            <a href="menu-pibinal.html" class="brand-card pibinal-theme card-3" style="background-image: url('images/bg-pibinal.jpg');">
+                <div class="card-bg-overlay"></div>
+                <div class="location-tag">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Villahermosa
                 </div>
-                <h2 class="card-title">Pibinal Choco</h2>
-                <p class="card-tagline">"Enterrados Chocos" en el Edén</p>
-                <span class="explore-btn">Ver menú ➔</span>
+
+                <div class="card-content">
+                    <div class="logo-wrapper">
+                        <img src="images/logopibi.svg" alt="Pibinal Choco Logo">
+                    </div>
+                    
+                    <div class="card-reveal-area">
+                        <h2 class="card-title">Pibinal Choco</h2>
+                        <p class="card-tagline">"Enterrados Chocos" en el Edén</p>
+                        <span class="explore-btn">Ver menú</span>
+                    </div>
+                </div>
             </a>
 
             <!-- El Pibito -->
-            <a href="menu-pibito.html" class="brand-card pibito-theme card-4">
-                <div class="logo-wrapper">
-                    <img src="images/logopibito.svg" alt="El Pibito Logo">
+            <a href="menu-pibito.html" class="brand-card pibito-theme card-4" style="background-image: url('images/bg-pibito.jpg');">
+                <div class="card-bg-overlay"></div>
+                <div class="location-tag">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5-2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Villahermosa
                 </div>
-                <h2 class="card-title">El Pibito</h2>
-                <p class="card-tagline">Arma el pibito a tu antojo</p>
-                <span class="explore-btn">Ver menú ➔</span>
+
+                <div class="card-content">
+                    <div class="logo-wrapper">
+                        <img src="images/logopibito.svg" alt="El Pibito Logo">
+                    </div>
+                    
+                    <div class="card-reveal-area">
+                        <h2 class="card-title">El Pibito</h2>
+                        <p class="card-tagline">Arma el pibito a tu antojo</p>
+                        <span class="explore-btn">Ver menú</span>
+                    </div>
+                </div>
             </a>
+
         </div>
     </section>
 
-    <!-- 4. SECCIÓN CHEF (FONDO BLANCO CLARO) -->
+    <!-- 4. SECCIÓN CHEF -->
     <div class="chef-section-wrapper">
         <section id="chef" class="chef-section section-scroll">
             <div class="chef-image">
                 <img src="images/chef.png" alt="Chef Fernando Marrufo">
             </div>
+
             <div class="chef-info">
                 <div class="chef-info-decorator"></div>
                 <h3>Conoce al Chef Fernando Marrufo</h3>
                 <p>Originario del corazón del sureste, el Chef Fernando ha dedicado su trayectoria a explorar y reinterpretar los ingredientes más puros de nuestras costas y selvas. Con un profundo respeto por la cocina de humo y las técnicas ancestrales, lidera las cocinas de Gastronómica Bak & Kay.</p>
-                <p>Los menús están inspirados en las viviencias y raíces  de nuestro Chef Fernando Marrufo dando siempre una personalidad y sazón único en cada uno de los platillos que dan una experiencia diferente y placentera para el paladar de los comensales.</p>
+                <p>Los menús están inspirados en las vivencias y raíces de nuestro Chef Fernando Marrufo, dando siempre una personalidad y sazón únicos en cada uno de los platillos que crean una experiencia diferente y placentera para el paladar de los comensales.</p>
             </div>
         </section>
     </div>
 
-    <!-- 5. FOOTER OSCURO Y PROFESIONAL -->
+    <!-- 5. FOOTER -->
     <footer class="site-footer">
-        <div class="footer-inner">
-            
-            <!-- Columna 1: Marca -->
+        <div class="footer-top">
             <div class="footer-brand">
                 <img src="images/logobk.svg" alt="Logo Bak & Kay">
-                <p>Enarbolamos las raíces culinarias de nuestra región, fusionando la frescura del mar y el misticismo del sureste mexicano a través de laja, leña y carbón.</p>
+                <p>
+                    Enarbolamos las raíces culinarias de nuestra región, fusionando la frescura del mar y el misticismo del sureste mexicano a través de laja, leña y carbón.
+                </p>
             </div>
 
-            <!-- Columna 2: Contacto -->
-            <div>
-                <h4 class="footer-title">Contacto</h4>
-                <ul class="footer-list">
-                    <!-- Teléfono Villahermosa -->
-                    <li>
-                        <a href="tel:+529932380992" class="footer-link">
-                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                            Villahermosa: +52 (993) 238 0992
-                        </a>
-                    </li>
-                    <!-- Teléfono Cancún -->
-                    <li>
-                        <a href="tel:+529981431538" class="footer-link">
-                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-                            Cancún: +52 (998) 143 1538
-                        </a>
-                    </li>
+            <div class="footer-cta">
+                <a href="https://wa.me/529932380992" target="_blank" rel="noopener noreferrer" aria-label="Reservar por WhatsApp">
+                    <!-- ÍCONO DE WHATSAPP -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Reserva
+                </a>
 
-                    <!-- WhatsApp (enlace a chat directo) -->
-                    <li>
-                        <a href="https://wa.me/529932380992" target="_blank" class="footer-link">
-                            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                            Mándanos un WhatsApp
-                        </a>
-                    </li>
-                    <!-- Correo -->
-                    <li>
-                        <a href="mailto:gastronomicabakkay@gmail.com" class="footer-link">
-                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                            gastronomicabakkay@gmail.com
-                        </a>
-                    </li>
-                </ul>
+                <a href="mailto:gastronomicabakkay@gmail.com" aria-label="Contactar por correo">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2 5h20v14H2V5Zm10 7 8-5H4l8 5Zm0 2-8-5v8h16V9l-8 5Z"/>
+                    </svg>
+                    Contáctanos
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-main">
+            <!-- BLOQUE DE SUCURSALES -->
+            <div class="footer-block">
+                <h4>Sucursales</h4>
+                <div class="footer-branches">
+                    <a href="tel:+529932380992" class="footer-link">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                        <span class="footer-link-text">
+                            <strong>Villahermosa:</strong><span>+52 (993) 238 0992</span>
+                        </span>
+                    </a>
+
+                    <a href="tel:+529981431538" class="footer-link">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                        <span class="footer-link-text">
+                            <strong>Cancún:</strong><span>+52 (998) 143 1538</span>
+                        </span>
+                    </a>
+                </div>
             </div>
 
-            <!-- Columna 3: Redes Sociales -->
-            <div>
-                <h4 class="footer-title">Síguenos</h4>
-                <div class="social-icons">
-                    <!-- Facebook -->
-                    <a href="https://www.facebook.com/veleritochoco" target="_blank" class="social-btn" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 6.05 21.21 11.06 21.96V14.89H8.39V12.06H11.06V9.95C11.06 7.34 12.68 5.89 15.06 5.89C16.19 5.89 17.38 6.09 17.38 6.09V8.56H16.07C14.77 8.56 14.37 9.35 14.37 10.15V12.06H17.26L16.81 14.89H14.37V21.96C19.38 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
-                    </a>
-                    <!-- Instagram -->
-                    <a href="https://www.instagram.com/veleritochoco/" target="_blank" class="social-btn" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24"><path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2C22 19.4 19.4 22 16.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2ZM7.6 4C5.6 4 4 5.6 4 7.6V16.4C4 18.4 5.6 20 7.6 20H16.4C18.4 20 20 18.4 20 16.4V7.6C20 5.6 18.4 4 16.4 4H7.6ZM12 6.8C14.87 6.8 17.2 9.13 17.2 12C17.2 14.87 14.87 17.2 12 17.2C9.13 17.2 6.8 14.87 6.8 12C6.8 9.13 9.13 6.8 12 6.8ZM12 8.8C10.23 8.8 8.8 10.23 8.8 12C8.8 13.77 10.23 15.2 12 15.2C13.77 15.2 15.2 13.77 15.2 12C15.2 10.23 13.77 8.8 12 8.8ZM17.27 5.53C17.93 5.53 18.47 6.07 18.47 6.73C18.47 7.39 17.93 7.93 17.27 7.93C16.61 7.93 16.07 7.39 16.07 6.73C16.07 6.07 16.61 5.53 17.27 5.53Z"/></svg>
-                    </a>
-                    <!-- TikTok -->
-                    <a href="https://www.tiktok.com/@veleritochoco" target="_blank" class="social-btn" aria-label="TikTok">
-                        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                    </a>
+            <!-- BLOQUE DE SÍGUENOS -->
+            <div class="footer-block footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-horizontal-container">
+                    <p class="social-text">Descubre nuestras nuevas creaciones y únete a la familia Bak & Kay.</p>
+                    
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/veleritochoco" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 6.05 21.21 11.06 21.96V14.89H8.39V12.06H11.06V9.95C11.06 7.34 12.68 5.89 15.06 5.89C16.19 5.89 17.38 6.09 17.38 6.09V8.56H16.07C14.77 8.56 14.37 9.35 14.37 10.15V12.06H17.26L16.81 14.89H14.37V21.96C19.38 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg>
+                        </a>
+
+                        <a href="https://www.instagram.com/veleritochoco/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M7.8 2H16.2C19.4 2 22 4.6 22 7.8V16.2C22 19.4 19.4 22 16.2 22H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2ZM7.6 4C5.6 4 4 5.6 4 7.6V16.4C4 18.4 5.6 20 7.6 20H16.4C18.4 20 20 18.4 20 16.4V7.6C20 5.6 18.4 4 16.4 4H7.6ZM12 6.8C14.87 6.8 17.2 9.13 17.2 12C17.2 14.87 14.87 17.2 12 17.2C9.13 17.2 6.8 14.87 6.8 12C6.8 9.13 9.13 6.8 12 6.8ZM12 8.8C10.23 8.8 8.8 10.23 8.8 12C8.8 13.77 10.23 15.2 12 15.2C13.77 15.2 15.2 13.77 15.2 12C15.2 10.23 13.77 8.8 12 8.8ZM17.27 5.53C17.93 5.53 18.47 6.07 18.47 6.73C18.47 7.39 17.93 7.93 17.27 7.93C16.61 7.93 16.07 7.39 16.07 6.73C16.07 6.07 16.61 5.53 17.27 5.53Z"/></svg>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@veleritochoco" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="TikTok">
+                            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -770,26 +1277,30 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE JAVASCRIPT CORREGIDO (Menú) -->
     <script>
         const sections = document.querySelectorAll('.section-scroll');
         const navLinks = document.querySelectorAll('.nav-item');
 
-        window.addEventListener('scroll', () => {
+        function updateActiveLink() {
             let current = '';
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= (sectionTop - 150)) {
+                if (window.pageYOffset >= (sectionTop - 160)) {
                     current = section.getAttribute('id');
                 }
             });
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + current) {
                     link.classList.add('active');
                 }
             });
-        });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        window.addEventListener('load', updateActiveLink);
     </script>
 </body>
 </html>

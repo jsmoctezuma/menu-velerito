@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Pibinal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary-red: #d32f2f;
             --primary-blue: #1A4B84;
-            --dark-bg: #1a1a1a;
-            --light-bg: #f9f9f9;
-            --text-main: #333;
+            --dark-bg: #0f172a;
+            --surface-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
             --premium-gold: #D4AF37;
         }
 
@@ -19,200 +22,313 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            background-color: var(--light-bg);
-            background-image: url('images/fndpibi.png');
+            background-color: #f4f6f8;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('images/fndpibi.png');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
             color: var(--text-main);
-            line-height: 1.6;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
+        /* --- HEADER AZUL OSCURO PREMIUM --- */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
-            text-align: center;
-            padding: 15px 15px 0 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
         }
 
-        .header-content {
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
-            padding-bottom: 10px;
-        }
-
-        .logo {
-            width: 60px;
-            height: auto;
-        }
-
-        .header-text {
-            text-align: left;
-        }
-
-        h1 {
-            color: var(--primary-red);
-            font-size: 28px;
-            margin-bottom: 0;
+            gap: 8px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        p.subtitle {
-            font-size: 14px;
-            color: var(--primary-red);
-            font-style: italic;
-            font-weight: bold;
+        .back-link:hover {
+            color: #ffffff;
+            transform: translateX(-3px);
         }
 
-        /* Botón Volver y Botón Inferior */
-        .back-btn-container {
-            display: none;
-            padding: 10px 0;
-            border-top: 1px solid #eee;
+        .back-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
-        .back-btn {
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            text-decoration: none;
-            display: inline-block;
-            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #b71c1c;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 18px rgba(211, 47, 47, 0.4);
-        }
-
-        .back-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* ESTILO PARA EL BOTÓN DE INICIO AL FINAL DE LA CUADRÍCULA */
-        .index-footer-container {
-            grid-column: 1 / -1;
+        .nav-logo {
             display: flex;
-            justify-content: center;
-            padding: 20px 0;
-            margin-top: 10px;
+            align-items: center;
         }
 
-        .btn-index {
-            background: var(--primary-blue);
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+            filter: brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        .nav-logo h1 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 0 0 0 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            padding-left: 12px;
+        }
+        
+        @media (max-width: 400px) {
+            .nav-logo h1 { font-size: 1rem; }
+        }
+
+        /* --- BOTÓN VOLVER A CATEGORÍAS --- */
+        .back-to-categories {
+            display: none;
+            background: rgba(255, 255, 255, 0.08);
             color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
             text-decoration: none;
-            padding: 15px 40px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
         }
 
-        .btn-index:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(26, 75, 132, 0.4);
+        .back-to-categories:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
         }
 
-        .btn-index:active {
-            transform: scale(0.95);
-        }
-
+        /* --- NAVEGACIÓN DESLIZABLE HORIZONTAL --- */
         .nav-wrapper {
             display: none;
             align-items: center;
-            border-top: 1px solid #eee;
-            padding: 5px 0;
+            padding: 10px 0;
+            background: rgba(11, 17, 32, 0.8);
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2);
         }
 
         .scroll-arrow {
             background: none;
             border: none;
-            color: var(--primary-red);
-            font-size: 20px;
-            font-weight: bold;
-            padding: 5px;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 5px 12px;
             cursor: pointer;
+            transition: color 0.3s;
         }
 
-        nav {
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 5px 0;
-            flex-grow: 1;
-            scroll-behavior: smooth;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .scroll-arrow:hover { color: var(--primary-red); }
 
-        nav::-webkit-scrollbar {
-            display: none;
-        }
+nav {
+    display: flex;
+    justify-content: safe center;
+    align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 5px 0;
+    flex-grow: 1;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+        nav::-webkit-scrollbar { display: none; }
 
         .cat-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--primary-red);
-            color: var(--primary-red);
-            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 8px 18px;
             margin: 0 5px;
-            border-radius: 20px;
-            font-size: 13px;
+            border-radius: 30px;
+            font-size: 12px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            flex-shrink: 0;
         }
 
-        .cat-btn.active {
+        .cat-btn:hover, .cat-btn.active {
             background: var(--primary-red);
+            border-color: var(--primary-red);
             color: white;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
         }
 
-        .cat-btn.premium {
-            border-color: var(--premium-gold);
-            color: var(--premium-gold);
-        }
-
-        .cat-btn.premium.active {
-            background: var(--premium-gold);
-            color: white;
-        }
-
+        /* --- LEYENDA (LEMA PIBINAL) --- */
         .spicy-legend {
             display: none;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px;
+            background-color: var(--surface-card);
+            padding: 12px;
             text-align: center;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 13px;
+            font-weight: 800;
             color: var(--primary-red);
-            border-bottom: 1px dashed var(--primary-red);
+            border-bottom: 2px dashed rgba(211, 47, 47, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 10;
         }
 
+        /* --- TÍTULO DE INSTRUCCIÓN PRINCIPAL --- */
+        .page-intro {
+            text-align: center;
+            padding: 30px 20px 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .page-intro h2 {
+            font-size: clamp(2rem, 5vw, 2.6rem);
+            color: var(--primary-red);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .page-intro p {
+            color: var(--primary-blue);
+            font-style: italic;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        /* --- TARJETA DE HORARIO (ESTRUCTURA RESTAURADA) --- */
+        .chef-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-left: 6px solid var(--premium-gold); /* Regresamos el borde a la izquierda */
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 25px auto;
+            max-width: 500px; /* La hacemos más estrecha para que se vea compacta */
+            width: calc(100% - 40px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            display: flex; /* Estructura horizontal */
+            align-items: center;
+            gap: 20px;
+        }
+
+        .chef-card::after {
+            content: "”";
+            position: absolute;
+            top: -20px;
+            right: 15px;
+            font-size: 120px;
+            color: rgba(212, 175, 55, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .chef-icon {
+            font-size: 32px;
+            background: rgba(212, 175, 55, 0.15);
+            min-width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+            flex-shrink: 0;
+        }
+
+        .chef-content {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .chef-title {
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-align: left; /* Alineado a la izquierda */
+        }
+
+        .chef-text {
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            text-align: center; /* Horario centrado */
+        }
+
+        .chef-signature {
+            margin-top: 8px;
+            font-family: 'Brush Script MT', cursive, serif;
+            font-size: 1.2rem;
+            color: var(--primary-red);
+            font-weight: normal;
+            font-style: italic;
+            text-align: right; /* Firma a la derecha */
+        }
+
+        @media (max-width: 480px) {
+            .chef-card {
+                padding: 15px;
+                gap: 15px;
+            }
+            .chef-icon {
+                min-width: 50px;
+                height: 50px;
+                font-size: 26px;
+            }
+        }
+
+        /* --- CUADRÍCULA PRINCIPAL --- */
         .home-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 20px 15px;
+            gap: 16px;
+            padding: 10px 20px 40px;
             max-width: 1000px;
             margin: 0 auto;
         }
@@ -220,73 +336,61 @@
         @media (min-width: 768px) {
             .home-grid {
                 grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
+                gap: 24px;
             }
         }
 
         .home-card {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 20px 10px;
+            border-radius: 16px;
+            padding: 30px 15px;
             text-align: center;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
             border: 2px solid transparent;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             cursor: pointer;
-            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .home-card:active {
-            transform: scale(0.95);
-        }
-
-        .home-card.premium {
-            border-color: var(--premium-gold);
-        }
+        .home-card:active { transform: scale(0.95); }
 
         .grid-icon {
-            font-size: 40px;
+            font-size: 48px;
             line-height: 1;
+            transition: transform 0.4s;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
         }
 
         .grid-text {
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 800;
             color: var(--primary-blue);
-            line-height: 1.2;
+            line-height: 1.3;
             transition: color 0.3s;
-        }
-
-        .home-card.premium .grid-text {
-            color: var(--premium-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .home-card:hover {
             background: var(--primary-red);
             border-color: var(--primary-red);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(211, 47, 47, 0.35);
         }
 
-        .home-card.premium:hover {
-            background: var(--premium-gold);
-            border-color: var(--premium-gold);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-        }
+        .home-card:hover .grid-text { color: white; }
+        .home-card:hover .grid-icon { transform: scale(1.15); }
 
-        .home-card:hover .grid-text {
-            color: white;
-        }
-
+        /* --- CONTENEDOR DEL MENÚ INTERIOR --- */
         .menu-container {
             display: none;
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px 15px;
+            padding: 40px 20px;
             flex-grow: 1;
             width: 100%;
         }
@@ -303,74 +407,127 @@
 
         .category-title {
             color: var(--primary-red);
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            font-size: 22px;
+            border-bottom: 3px solid var(--primary-red);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 26px;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .category-title.premium-title {
-            color: var(--premium-gold);
-            border-bottom-color: var(--premium-gold);
-        }
-
-        .category-desc {
-            font-size: 14px;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-            font-style: italic;
-            font-weight: 500;
-        }
-
+        /* --- ITEMS --- */
         .item {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .item-info { width: 75%; }
-        .item-name { font-weight: bold; font-size: 16px; margin-bottom: 2px; color: var(--text-main); }
-        .item-desc { font-size: 13px; color: var(--primary-blue); font-style: italic; margin-top: 3px; }
-        .item-price { font-weight: bold; color: var(--primary-blue); font-size: 16px; text-align: right; width: 25%; }
+        .item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-color: rgba(211, 47, 47, 0.25);
+        }
 
+        .item-info { flex: 1; }
+
+        .item-name {
+            font-weight: 800;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .item-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .item-price {
+            font-weight: 800;
+            color: var(--primary-blue);
+            font-size: 17px;
+            text-align: right;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .item-price {
+                text-align: left;
+                width: 100%;
+                font-size: 16px;
+                padding-top: 5px;
+                border-top: 1px dashed rgba(0,0,0,0.1);
+            }
+        }
+
+        /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
             background-color: var(--dark-bg);
-            color: #ccc;
+            color: #cbd5e1;
             font-size: 12px;
             margin-top: auto;
+            border-top: 4px solid var(--primary-red);
+            line-height: 1.6;
         }
 
+        footer p { margin-bottom: 5px; }
+        footer p:last-child { margin-bottom: 0; }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 
 <body>
 
     <header>
-        <div class="header-content">
-            <img src="images/logopibi.svg" alt="Logo Pibinal" class="logo">
-            <div class="header-text">
-                <h1>Menú PIBINAL</h1>
-                <p class="subtitle" style="color: var(--primary-blue);">Desayunos & Comidas</p>
+        <div class="top-navbar">
+            <a href="index.html" class="back-link">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Menú Principal
+            </a>
+            
+            <div class="nav-logo" style="display: flex; align-items: center;">
+                <img src="images/logopibi.svg" alt="Logo Pibinal" onerror="this.src='images/logo.svg'">
+                <h1>PIBINAL</h1>
             </div>
         </div>
 
-        <div class="back-btn-container" id="back-container">
-            <button class="back-btn" onclick="showHome()">🏠 Menú Principal</button>
-        </div>
+        <button class="back-to-categories" id="back-container" onclick="showHome()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            Volver a Categorías
+        </button>
 
         <div class="nav-wrapper" id="nav-wrapper">
             <button class="scroll-arrow" onclick="scrollNav(-150)">❮</button>
@@ -383,16 +540,22 @@
         "Enterrados Chocos" en el Edén
     </div>
 
-    <div id="chef-message" style="text-align: center; margin: 20px auto 10px auto; font-size: 16px; color: var(--primary-blue); font-weight: bold; max-width: 800px; padding: 0 15px;">
-        <p>Martes a Domingo de 8:00am a 4:00pm</p>
-        <p style="font-style: italic;">by: Fernando Marrufo</p>
+    <div class="page-intro" id="page-intro">
+        <h2>Menú Pibinal</h2>
+        <p>Desayunos & Comidas</p>
     </div>
 
-    <div id="home-view" class="home-grid">
-        <div class="index-footer-container" id="index-footer">
-            <a href="index.html" class="btn-index">🏠 Volver al Inicio</a>
+    <!-- TARJETA CORREGIDA: Ícono e interior alineados como se pidió -->
+    <div class="chef-card" id="chef-message">
+        <div class="chef-icon">🕰️</div>
+        <div class="chef-content">
+            <div class="chef-title">Nuestra Tradición</div>
+            <div class="chef-text">Martes a Domingo de 8:00 am a 4:00 pm</div>
+            <div class="chef-signature">- Fernando Marrufo</div>
         </div>
     </div>
+
+    <div id="home-view" class="home-grid"></div>
 
     <div class="menu-container" id="menu-content"></div>
     
@@ -415,13 +578,13 @@
         ];
 
         const chefMessage = document.getElementById('chef-message');
+        const pageIntro = document.getElementById('page-intro');
         const homeGrid = document.getElementById('home-view');
         const navWrapper = document.getElementById('nav-wrapper');
         const categoryNav = document.getElementById('category-nav');
         const menuContent = document.getElementById('menu-content');
         const backContainer = document.getElementById('back-container');
         const spicyLegend = document.getElementById('spicy-legend');
-        const indexFooter = document.getElementById('index-footer');
 
         function init() {
             menuData.forEach((cat, index) => {
@@ -429,21 +592,33 @@
                 card.className = 'home-card';
                 card.onclick = () => showCategory(index);
                 card.innerHTML = `<div class="grid-icon">${cat.icon}</div><div class="grid-text">${cat.category}</div>`;
-                homeGrid.insertBefore(card, indexFooter);
+                homeGrid.appendChild(card);
 
                 const btn = document.createElement('button');
                 btn.className = 'cat-btn';
-                btn.innerText = cat.category;
+                btn.innerHTML = `${cat.icon} &nbsp; ${cat.category}`;
                 btn.onclick = () => showCategory(index);
                 categoryNav.appendChild(btn);
 
                 const section = document.createElement('div');
                 section.className = 'category-section';
                 section.id = `cat-${index}`;
+                
                 let html = `<h2 class="category-title">${cat.icon} ${cat.category}</h2>`;
-                cat.items.forEach(item => {
-                    html += `<div class="item"><div class="item-info"><div class="item-name">${item.name}</div>${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}</div><div class="item-price">${item.price}</div></div>`;
-                });
+                
+                if(cat.items) {
+                    cat.items.forEach(item => {
+                        html += `
+                        <div class="item">
+                            <div class="item-info">
+                                <div class="item-name">${item.name}</div>
+                                ${item.desc ? `<div class="item-desc">${item.desc}</div>` : ''}
+                            </div>
+                            <div class="item-price">${item.price}</div>
+                        </div>`;
+                    });
+                }
+                
                 section.innerHTML = html;
                 menuContent.appendChild(section);
             });
@@ -451,21 +626,25 @@
 
         function showCategory(index) {
             chefMessage.style.display = 'none';
+            pageIntro.style.display = 'none';
             homeGrid.style.display = 'none';
             menuContent.style.display = 'block';
             navWrapper.style.display = 'flex';
-            backContainer.style.display = 'block';
+            backContainer.style.display = 'flex';
             spicyLegend.style.display = 'block';
             
             document.querySelectorAll('.cat-btn').forEach((b, i) => b.classList.toggle('active', i === index));
             document.querySelectorAll('.category-section').forEach((s, i) => s.classList.toggle('active', i === index));
+            
             const activeBtn = document.querySelectorAll('.cat-btn')[index];
-            if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+            if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            
             window.scrollTo(0, 0);
         }
 
         function showHome() {
-            chefMessage.style.display = 'block';
+            chefMessage.style.display = 'flex'; /* Regresado a flex para mantener la estructura horizontal */
+            pageIntro.style.display = 'block';
             homeGrid.style.display = 'grid';
             menuContent.style.display = 'none';
             navWrapper.style.display = 'none';
@@ -475,6 +654,7 @@
         }
 
         function scrollNav(amt) { categoryNav.scrollBy({ left: amt, behavior: 'smooth' }); }
+        
         init();
     </script>
 </body>
